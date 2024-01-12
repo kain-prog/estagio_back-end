@@ -6,7 +6,7 @@
     - botão para fazer login;
     - botão para se registrar;
 
-2. - Página de Registro
+2. Página de Registro
     - formulário de registro;
     - botão de redirecionamento para login;
     - botão de redirecionamento para página principal;
