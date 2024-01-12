@@ -6,7 +6,7 @@
     - botão para fazer login;
     - botão para se registrar;
 
-2. Página de Registro
+2. Página de Registro:
     - formulário de registro;
     - botão de redirecionamento para login;
     - botão de redirecionamento para página principal;
@@ -25,12 +25,12 @@
 
 5. Página de dashboard:
     - botão para cadastrar produtos;
-    - listagem dos produtos com seus respectivos status;
+    - listagem dos produtos *ativos*;
 
 6. Página de produtos:
     - botão para criação de categorias;
     - botão para criação de produtos;
-    - listagem de produtos criados com botões de ação como edição e exclusão;
+    - listagem de produtos criados com botões de ação como edição, exclusão e toggle[*ativar ou desativar*];
 
 7. Página inicial de admin: 
     - botão de gerenciamento de usuários;
@@ -42,48 +42,48 @@
     - botão para adicionar um novo usuário;
     - listagem de todos os usuários com botão de exclusão;
 
-9. Pagina de gerenciamento de notícias;
+9. Página de gerenciamento de notícias;
     - botão para adicionar uma nova notícia;
     - listagem de todas as notícias com botões de ação como edição e exclusão;
 
 ## - Tabela de Usuários
 
-- [ ] Text-> nome
-- [ ] Text->[unico]-> email 
-- [ ] Text->[unico] cpf
-- [ ] Text-> endereco
-- [ ] Text-> cidade
-- [ ] Text-> uf
-- [ ] Text-> senha
-- [ ] Bool-> admin
+- [x] Text-> nome
+- [x] Text->[unico]-> email 
+- [x] Text->[unico] cpf
+- [x] Text-> endereco
+- [x] Text-> cidade
+- [x] Text-> uf
+- [x] Text-> senha
+- [x] Bool-> admin
 
 
 ## - Tabela de Notícias
 
-- [ ] Text-> titulo
-- [ ] Data-> data
-- [ ] Text-> resumo
-- [ ] Text-> imagem
-- [ ] Text-> conteudo
-- [ ] Bool-> destaque
-- [ ] ForeignKey-> usuario_id
+- [x] Text-> titulo
+- [x] Data-> data
+- [x] Text-> resumo
+- [x] Text-> imagem
+- [x] Text-> conteudo
+- [x] Bool-> destaque
+- [x] ForeignKey-> usuario_id
 
 
 ## - Tabela de Categorias
 
-- [ ] Text-> nome
-- [ ] Text->[unico] codigo
-- [ ] ForeignKey-> usuario_id
+- [x] Text-> nome
+- [x] Text->[unico] codigo
+- [x] ForeignKey-> usuario_id
 
 
 ## - Tabela de Produtos
 
-- [ ] Text-> nome
-- [ ] Text-> codigo
-- [ ] Text-> status
-- [ ] Float-> valor
-- [ ] Integer-> quantidade
-- [ ] Text-> descricao
-- [ ] Text-> imagem
-- [ ] ForeignKey-> categoria_id
-- [ ] ForeignKey-> usuario_id
+- [x] Text-> nome
+- [x] Text->[unico] codigo
+- [x] Text-> status
+- [x] Float-> valor
+- [x] Integer-> quantidade
+- [x] Text-> descricao
+- [x] Text-> imagem
+- [x] ForeignKey-> categoria_id
+- [x] ForeignKey-> usuario_id
