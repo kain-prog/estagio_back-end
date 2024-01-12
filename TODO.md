@@ -2,7 +2,7 @@
 
 ## Páginas
 
-1. - Página Principal:
+1. Página Principal:
     - botão para fazer login;
     - botão para se registrar;
 
@@ -11,38 +11,38 @@
     - botão de redirecionamento para login;
     - botão de redirecionamento para página principal;
 
-3. - Página de Login:
+3. Página de Login:
     - cpf;
     - senha;
     - botão de redirecionamento para a página principal;
     - botão de redirecionamento para registro;
 
-4. - Página inicial de usuários:
+4. Página inicial de usuários:
     - botão de redirecionamento para a dashboard;
     - botão de redirecionamento para editar o perfil;
     - conter as 3 notícias em destaque;
     - botão para mostrar todas as notícias;
 
-5. - Página de dashboard:
+5. Página de dashboard:
     - botão para cadastrar produtos;
     - listagem dos produtos com seus respectivos status;
 
-6. - Página de produtos:
+6. Página de produtos:
     - botão para criação de categorias;
     - botão para criação de produtos;
     - listagem de produtos criados com botões de ação como edição e exclusão;
 
-7. - Página inicial de admin: 
+7. Página inicial de admin: 
     - botão de gerenciamento de usuários;
     - botão de gerenciamento de notícias;
     - conter as 3 notícias em destaque;
     - botão para mostrar todas as notícias;
 
-8. - Página de gerenciamento de usuários:
+8. Página de gerenciamento de usuários:
     - botão para adicionar um novo usuário;
     - listagem de todos os usuários com botão de exclusão;
 
-9. - Pagina de gerenciamento de notícias;
+9. Pagina de gerenciamento de notícias;
     - botão para adicionar uma nova notícia;
     - listagem de todas as notícias com botões de ação como edição e exclusão;
 
