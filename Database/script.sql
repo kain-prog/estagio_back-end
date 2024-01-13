@@ -10,7 +10,7 @@ CREATE TABLE usuarios (
     cidade VARCHAR(25) NOT NULL,
     uf VARCHAR(5) NOT NULL,
     senha VARCHAR(100) NOT NULL,
-    is_admin BOOLEAN NOT NULL,
+    adm BOOLEAN NOT NULL,
     PRIMARY KEY (id)
 );
 
@@ -52,5 +52,5 @@ CREATE TABLE produtos (
     FOREIGN KEY (categoria_id) REFERENCES categorias(id)
 );
 
-INSERT INTO usuarios ( nome, email, cpf, endereco, cidade, uf, senha, is_admin ) VALUES 
-                     ( 'Admin', 'admin@internit.com', '11111111111' , 'R. Santa Rosa', 'Niteroi', 'RJ', 'adm123', true )
+INSERT INTO usuarios ( nome, email, cpf, endereco, cidade, uf, senha, adm ) VALUES 
+                     ( 'Admin', 'admin@internit.com.br', '11111111111' , 'R. Santa Rosa', 'Niteroi', 'RJ', 'adm123', true )
