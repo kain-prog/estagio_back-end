@@ -47,9 +47,9 @@
     <div class="mb-5 row justify-content-center justify-content-lg-start">
 
         <div class="col-lg-5 mb-4 mb-lg-0 w-auto">
-            <h2 class="">Painel Administrador</h2>
-            <p class="">Olá, <?= $usuario_logado['nome'] ?>.  Bem vindo novamente.</p>
-            <a class="" href="#">editar_perfil</a>
+            <h2>Painel Administrador</h2>
+            <p >Olá, <?= $usuario_logado['nome'] ?>.  Bem vindo novamente.</p>
+            <a href="./perfil.php">editar_perfil</a>
         </div>
 
 
