@@ -46,18 +46,18 @@
     </div>
 
     <div class="mb-3">
-        <label for="senha">Senha antiga:</label>
-        <input type="text" class="form-control" name="senha" id="senha" style="box-shadow: none !important;" placeholder="******" required>
+        <label for="senha">Senha atual:</label>
+        <input type="password" class="form-control" name="senha_atual" id="senha" style="box-shadow: none !important;" placeholder="******" value="<?= $usuario_logado['senha'] ?>" >
     </div>
 
     <div class="mb-3">
         <label for="senha">Nova Senha:</label>
-        <input type="text" class="form-control" name="senha" id="senha" style="box-shadow: none !important;" placeholder="******" required>
+        <input type="password" class="form-control" name="senha" id="senha" style="box-shadow: none !important;" placeholder="******">
     </div>
 
     <div class="mb-3">
-        <label for="confirmacao_senha">Confirme a sua senha:</label>
-        <input type="text" class="form-control" name="confirmacao_senha" id="confirmacao_senha" style="box-shadow: none !important;" placeholder="******" required>
+        <label for="confirmacao_senha">Confirme a sua nova senha:</label>
+        <input type="password" class="form-control" name="confirmacao_senha" id="confirmacao_senha" style="box-shadow: none !important;" placeholder="******">
     </div>
 
 

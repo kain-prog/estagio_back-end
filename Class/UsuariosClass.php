@@ -17,9 +17,6 @@ class Usuarios
         if($conn->rowCount() <= 0) return 0;
 
         return $conn;
-        
-        // return $usuarios;
-
     }
 
     public function login( $email, $senha )
@@ -43,7 +40,6 @@ class Usuarios
                 $_SESSION['internit-login'] = $usuario['id'];
                 
                 echo "<script>alert( 'Login feito com sucesso!' );</script>";
-                // header('Location: ../login.php');
 
                 $this->listar_por_id($usuario['id']);
 
@@ -57,24 +53,24 @@ class Usuarios
                 return true;
 
             } else{
-
                 echo "<script>alert( 'A senha inserida está incorreta.' );</script>";
                 return false;
 
             }
 
-
         } else { 
-
             echo  "<script>alert( 'O e-mail inserido não existe.' );</script>";
             return false;
 
         }
-
     }
 
     public function registrar( $dados )
     {
+        if(!filter_var($dados['email'], FILTER_VALIDATE_EMAIL)){
+            echo "<script>alert( 'Insira um e-mail válido' )</script>";
+            return ;
+        }
 
         $query = ("INSERT INTO usuarios ( nome, cpf, endereco, cidade, uf, senha, adm ) 
                     VALUES
@@ -106,6 +102,70 @@ class Usuarios
             return $usuario;
     
         }
+    }
+
+    public function atualizar_dados( $id, $dados)
+    {
+
+        if( empty( $dados['senha_atual'] ) ){
+            echo "<script>alert( 'A senha atual é obrigatória' )</script>";
+            return ;
+        }
+
+        $nome = addslashes( $dados['nome'] );
+        $cpf = addslashes( $dados['cpf'] );
+        $email = addslashes( $dados['email'] );
+        $endereco = addslashes( $dados['endereco'] );
+        $cidade = addslashes( $dados['cidade'] );
+        $uf = addslashes( $dados['uf'] );
+
+
+        if( !empty( $dados['senha'] || !empty( $dados['confirmacao_senha'] ))){
+
+            if( $dados['senha'] !== $dados['confirmacao_senha'] ){
+                echo "<script>alert( 'Confirmação de senha inválida' )</script>";
+                return ;
+            }
+            
+            $senha = md5( $dados['senha'] );
+
+            $query = "UPDATE usuarios SET `nome` = :nome, `cpf` = :cpf, `email` = :email, `endereco` = :endereco, `cidade` = :cidade, `uf` = :uf, `senha` = :senha WHERE `id` = :id";
+
+            $sql = $this->pdo->prepare( $query );
+            $sql->bindValue( ':id', $id );
+            $sql->bindValue( ':nome', $nome );
+            $sql->bindValue( ':cpf', $cpf );
+            $sql->bindValue( ':email', $email );
+            $sql->bindValue( ':endereco', $endereco );
+            $sql->bindValue( ':cidade', $cidade );
+            $sql->bindValue( ':uf', $uf );
+            $sql->bindValue( ':senha', $senha );
+
+            $sql->execute();
+
+            echo "<script>alert( 'Seus dados foram atualizados com sucesso!' )</script>";
+
+        } else {
+
+            $query = "UPDATE `usuarios` SET `nome` = :nome, `cpf` = :cpf, `email` = :email, `endereco` = :endereco, `cidade` = :cidade, `uf` = :uf WHERE `id` = :id ";
+
+            $sql = $this->pdo->prepare( $query );
+            $sql->bindValue( ':id', $id );
+            $sql->bindValue( ':nome', $nome );
+            $sql->bindValue( ':cpf', $cpf );
+            $sql->bindValue( ':email', $email );
+            $sql->bindValue( ':endereco', $endereco );
+            $sql->bindValue( ':cidade', $cidade );
+            $sql->bindValue( ':uf', $uf );
+
+            $sql->execute();
+
+            echo "<script>alert( 'Seus dados foram atualizados com sucesso!' )</script>";
+
+        }
+
+
+
     }
 
     public function logout()
