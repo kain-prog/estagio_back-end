@@ -22,7 +22,10 @@
 
         $usuario_logado = $usuarios_class->listar_por_id( $id );
 
-        if( !$usuario_logado['adm'] ) return header(' Location: ../usuario/painel.php ');
+        if( !$usuario_logado['adm'] ) {
+            header( 'Location: ../usuario/painel.php' );
+            exit;
+        }
 
 
     }else {
@@ -34,7 +37,7 @@
         $usuarios = new Usuarios( $pdo );
         $usuarios->logout();
     
-        header('Location: ../index.php');
+        header( 'Location: ../index.php' );
         exit;        
     }
 ?>
@@ -119,5 +122,5 @@
 
 
 <?php 
-    include './Includes/layout-rodape.php'; 
+    include '../Includes/layout-rodape.php'; 
 ?>
