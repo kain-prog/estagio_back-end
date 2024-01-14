@@ -52,7 +52,7 @@
         <div class="col-lg-5 mb-4 mb-lg-0 w-auto">
             <h2>Painel Administrador</h2>
             <p >Olá, <?= $usuario_logado['nome'] ?>.  Bem vindo novamente.</p>
-            <a href="./perfil.php">editar_perfil</a>
+            <small><a class="text-decoration-none" href="./perfil.php">editar perfil</a></small>
         </div>
 
 
@@ -112,7 +112,7 @@
         </div>
 
         <div class="table-footer py-2 d-flex justify-content-end px-4">
-            <a href="" class="text-decoration-none">Todas as notícias</a>
+            <a href="../noticias/todas.php" class="text-decoration-none">Todas as notícias</a>
         </div>
     </div>
 
