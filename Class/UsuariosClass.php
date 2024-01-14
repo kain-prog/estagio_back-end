@@ -2,7 +2,7 @@
 
 class Usuarios
 {
-    private $adm = false;
+    private $adm = 0;
     private $id;
 
     public function __construct( private $pdo  ){}
@@ -11,7 +11,7 @@ class Usuarios
     {   
 
         $conn = $this->pdo->prepare("SELECT * FROM usuarios WHERE adm = :adm");
-        $conn->bindValue( ":adm", false  );
+        $conn->bindValue( ":adm", 1  );
         $conn->execute();
     
         if($conn->rowCount() <= 0) return 0;
@@ -43,7 +43,7 @@ class Usuarios
 
                 $this->listar_por_id($usuario['id']);
 
-                if($usuario['adm']){
+                if( $usuario['adm'] != 0 ){
                     header( 'Location: ./adm/painel.php' );
 
                 }else{
@@ -67,24 +67,51 @@ class Usuarios
 
     public function registrar( $dados )
     {
+
         if(!filter_var($dados['email'], FILTER_VALIDATE_EMAIL)){
             echo "<script>alert( 'Insira um e-mail válido' )</script>";
             return ;
         }
 
-        $query = ("INSERT INTO usuarios ( nome, cpf, endereco, cidade, uf, senha, adm ) 
-                    VALUES
-                $dados->nome, $dados->cpf, $dados->endereco, $dados->cidade, $dados->uf, $dados->senha, $this->adm ");
+        if( !empty( $dados['senha'] || !empty( $dados['confirmacao_senha'] ))){
 
-        $sql = $this->pdo->prepare( $query );
-        $sql->bindValue( ':nome', $dados['nome']  );
-        $sql->bindValue( ':cpf', $dados['cpf']  );
-        $sql->bindValue( ':endereco', $dados['endereco']  );
-        $sql->bindValue( ':cidade', $dados['cidade']  );
-        $sql->bindValue( ':uf', $dados['uf']  );
-        $sql->bindValue( ':senha', md5( $dados['senha'] )  );
-        $sql->bindValue( ':adm', $dados['adm']  );
-        $sql->execute();            
+            if( $dados['senha'] !== $dados['confirmacao_senha'] ){
+                echo "<script>alert( 'Confirmação de senha inválida' )</script>";
+                return ;
+            }
+
+            $formatar_cpf = explode( '.', $dados['cpf'] );
+            $formatar_cpf = explode( '-', implode($formatar_cpf) );
+            $cpf_formatado = implode($formatar_cpf);
+
+            $query = ( "INSERT INTO usuarios ( nome, email, cpf, endereco, cidade, uf, senha, adm ) 
+                        VALUES
+                    ( :nome, :email, :cpf, :endereco, :cidade, :uf, :senha, :adm )" );
+
+            $nome = addslashes( $dados['nome'] );
+            $email = addslashes( $dados['email'] );
+            $cpf = addslashes( $cpf_formatado );
+            $endereco = addslashes( $dados['endereco'] );
+            $cidade = addslashes( $dados['cidade'] );
+            $uf = addslashes( $dados['uf'] );
+            $adm = addslashes( $this->adm );
+            $senha = md5( $dados['senha'] );
+
+            $sql = $this->pdo->prepare( $query );
+            $sql->bindValue( ':nome', $nome  );
+            $sql->bindValue( ':email', $email  );
+            $sql->bindValue( ':cpf', $cpf );
+            $sql->bindValue( ':endereco', $endereco  );
+            $sql->bindValue( ':cidade', $cidade  );
+            $sql->bindValue( ':uf', $uf );
+            $sql->bindValue( ':senha', md5( $senha )  );
+            $sql->bindValue( ':adm', $adm );
+            $sql->execute();            
+
+            echo "<script>alert( 'Seus dados foram atualizados com sucesso!' )</script>";
+            header( 'Location: ./login.php' );
+        }
+
     }
 
     public function listar_por_id( $id )
@@ -163,9 +190,6 @@ class Usuarios
             echo "<script>alert( 'Seus dados foram atualizados com sucesso!' )</script>";
 
         }
-
-
-
     }
 
     public function logout()
