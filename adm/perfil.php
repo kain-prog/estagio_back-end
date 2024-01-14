@@ -10,23 +10,21 @@
 
     if( !empty( $_SESSION['internit-login']) ){
 
+        //id do usuário logado
         $id = $_SESSION['internit-login'];
 
         $usuarios_class = new Usuarios( $pdo );
-        $usuarios = $usuarios_class->listar();
-
-        // Definindo quantidade de usuarios
-        $quantidade_usuarios = $usuarios->rowCount();
-        // Definindo informações de usuarios
-        $todos_usuarios = $usuarios->fetchAll();
-
+        
+        // Dados do usuário logado
         $usuario_logado = $usuarios_class->listar_por_id( $id );
 
-        if( !$usuario_logado['adm'] ) return header(' Location: ../usuario/painel.php ');
-
+        if( !$usuario_logado['adm'] ){
+            header( 'Location: ../usuario/painel.php' ); 
+            exit;
+        }
 
     }else {
-        header( 'Location: ../login.php' );
+        header( 'Location: ../login.php' ); 
         exit;
     }
 
@@ -34,8 +32,27 @@
         $usuarios = new Usuarios( $pdo );
         $usuarios->logout();
     
-        header('Location: ../index.php');
+        header( 'Location: ../index.php' ); 
         exit;        
+    }
+
+    if( isset( $_POST['atualizar'] )){
+
+        $nome = $_POST['nome'] ;
+        $cpf = $_POST['cpf'];
+        $email = $_POST['email'];
+        $endereco = $_POST['endereco'];
+        $cidade = $_POST['cidade'];
+        $uf = $_POST['uf'];
+        $senha_atual = $_POST['senha_atual'];
+        $senha = $_POST['senha'] ;
+        $confirmacao_senha = $_POST['confirmacao_senha'];
+
+        $dados = array(  'nome' => $nome, 'cpf' => $cpf, 'email' => $email, 'endereco' => $endereco, 'cidade' => $cidade, 'uf' => $uf,
+                    'senha_atual' => $senha_atual, 'senha' => $senha, 'confirmacao_senha' => $confirmacao_senha );
+
+        $usuarios = new Usuarios( $pdo );
+        $usuarios->atualizar_dados( $id, $dados );
     }
 ?>
 
@@ -52,5 +69,5 @@
 
 
 <?php 
-    include './Includes/layout-rodape.php'; 
+    include '../Includes/layout-rodape.php'; 
 ?>
