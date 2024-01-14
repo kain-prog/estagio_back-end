@@ -32,6 +32,14 @@
         $usuarios = new Usuarios($pdo);
         $usuarios->login( $email, $senha );
     }
+
+    if( !empty($_POST['logout'])){
+        $usuarios = new Usuarios( $pdo );
+        $usuarios->logout();
+    
+        header('Location: ../index.php');
+        exit;        
+    }
 ?>
 
 
