@@ -11,7 +11,7 @@ class Usuarios
     {   
 
         $conn = $this->pdo->prepare("SELECT * FROM usuarios WHERE adm = :adm");
-        $conn->bindValue( ":adm", 1  );
+        $conn->bindValue( ":adm", 0  );
         $conn->execute();
     
         if($conn->rowCount() <= 0) return 0;
