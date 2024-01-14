@@ -21,7 +21,7 @@ CREATE TABLE noticias (
     resumo VARCHAR(100) NOT NULL,
     imagem VARCHAR(255),
     conteudo TEXT NOT NULL,
-    destaque INT NOT NULL,
+    destaque BOOLEAN NOT NULL,
     usuario_id INT NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
