@@ -1,14 +1,3 @@
-<?php
-
-  if( !empty( $_SESSION['internit-login'] )){
-    $id = $_SESSION['internit-login'];
-
-    $usuario = new Usuarios( $pdo );
-    $usuario_logado = $usuario->listar_por_id( $id );
-  }
-
-?>
-
 <nav class="navbar navbar-expand-lg bg-body-tertiary shadow-sm">
   <div class="container d-flex space-between">
     <a href="../index.php" class="navbar-brand">Internit</a>
@@ -16,7 +5,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-      <ul class="navbar-nav">
+      <ul class="navbar-nav align-items-center">
 
         <?php if( !isset($_SESSION['internit-login']) ){  ?>
 
@@ -31,6 +20,10 @@
         <?php }else{ ?>
 
             <?php if( !$usuario_logado['adm'] ){ ?>
+
+              <li class="nav-item">
+                <a class="btn btn-sm text-white me-3" aria-current="page" href="../dashboard.php" style="background: #315d7b">Dashboard</a>
+              </li>
 
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="../usuario/painel.php">Meu Painel</a>
