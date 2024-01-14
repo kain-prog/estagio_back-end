@@ -1,4 +1,3 @@
-
 <form method="POST" class="form-control shadow-sm m-auto pt-4 pb-3 px-4  bg-body-tertiary" style="max-width: 100%">
 
     <div class="d-flex gap-2 align-items-center mb-4 ">
@@ -68,6 +67,6 @@
 </form>
 
 <div class="d-flex justify-content-end w-100 m-auto mt-3" style="max-width: 100%;">
-    <a href="./painel.php">Voltar para o painel</a>
+    <a class="text-decoration-none" href="./painel.php">Voltar para o painel</a>
 </div>
 
