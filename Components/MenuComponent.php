@@ -5,7 +5,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-      <ul class="navbar-nav align-items-center">
+      <ul class="navbar-nav align-items-lg-center my-3 my-lg-0">
 
         <?php if( !isset($_SESSION['internit-login']) ){  ?>
 
@@ -22,7 +22,7 @@
             <?php if( !$usuario_logado['adm'] ){ ?>
 
               <li class="nav-item">
-                <a class="btn btn-sm text-white me-3" aria-current="page" href="../dashboard.php" style="background: #315d7b">Dashboard</a>
+                <a class="btn btn-sm text-white me-lg-3" aria-current="page" href="../dashboard.php" style="background: #315d7b">Dashboard</a>
               </li>
 
               <li class="nav-item">
