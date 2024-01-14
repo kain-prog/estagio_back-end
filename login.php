@@ -31,9 +31,7 @@
 
         $usuarios = new Usuarios($pdo);
         $usuarios->login( $email, $senha );
-
     }
-
 ?>
 
 
