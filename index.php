@@ -8,6 +8,14 @@
     
     include './Includes/layout-cabecalho.php';
 
+    if( !empty( $_SESSION['internit-login'] ) ){
+        
+        $id = $_SESSION['internit-login'];
+
+        $usuarios_class = new Usuarios( $pdo );
+        $usuario_logado = $usuarios_class->listar_por_id( $id );
+    }
+
     if( !empty($_POST['logout'])){
         $usuarios = new Usuarios( $pdo );
         $usuarios->logout();
@@ -28,10 +36,6 @@
     </div>
 
     <div class="row m-auto">
-
-        
-
-
 
     </div>
 </div>
