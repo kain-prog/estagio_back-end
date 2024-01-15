@@ -5,6 +5,7 @@
 
     require '../Database/Conexao.php';
     require '../Class/UsuariosClass.php';
+    require '../Class/NoticiasClass.php';
     
     include '../Includes/layout-cabecalho.php';
 
@@ -21,6 +22,13 @@
         $todos_usuarios = $usuarios->fetchAll();
 
         $usuario_logado = $usuarios_class->listar_por_id( $id );
+
+        $noticias_class = new Noticias( $pdo );
+        // Todas Noticias
+        $quantidade_noticias = $noticias_class->todas_noticias()->rowCount();
+        // Noticias em Destaque
+        $quantidade_noticias_destaque = $noticias_class->noticias_em_destaque()->rowCount();;
+        $noticias_destaque = $noticias_class->noticias_em_destaque()->fetchAll();
 
         if( !$usuario_logado['adm'] ) {
             header( 'Location: ../usuario/painel.php' );
@@ -66,9 +74,9 @@
             </div>
 
             <div class="card mb-3" style="max-width: 18rem; background: #315d7b">
-                <div class="card-header text-white" style="border-bottom: none !important;"> Total de Notícias</div>
+                <div class="card-header text-white" style="border-bottom: none !important;"> Total de Notícias </div>
                 <div class="card-body text-white d-flex align-items-center justify-content-center">
-                    <h2 class="fs-1 fw-normal fst-italic">4</h2>
+                    <h2 class="fs-1 fw-normal fst-italic"><?= $quantidade_noticias ?></h2>
                 </div>
             </div>
             
@@ -82,7 +90,7 @@
         <div class="card-body">
 
             <div class="d-flex gap-3 justify-content-end my-3">
-                <a href="#" class="btn btn-sm text-white" style="background: #315d7b">Nova notícia</a>
+                <a href="../noticias/criar.php" class="btn btn-sm text-white" style="background: #315d7b">Nova notícia</a>
                 <a href="#" class="btn btn-sm btn-secondary text-white">Gerenciar notícias</a>
             </div>
 
@@ -93,22 +101,29 @@
                         <td class="text-center">Imagem</td>
                         <td class="text-center">Título</td>
                         <td class="text-center">Resumo</td>
-                        <td class="text-center">Conteúdo</td>
                         <td class="text-center">Data</td>                         
                         <td class="text-center">Ações</td>                         
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
+                    <?php foreach( $noticias_destaque as $noticia ): ?>
+
+                        <tr>
+                            <td class="text-center" style="vertical-align: middle;">
+                                <img style="max-width: 80px;" src="../<?= $noticia['imagem'] ?>" alt="<?= $noticia['titulo'] ?>">
+                            </td>
+                            <td class="text-center" style="vertical-align: middle;"> <?= $noticia['titulo'] ?></td>
+                            <td class="text-center" style="vertical-align: middle;"> <?= $noticia['resumo'] ?></td>
+                            <td class="text-center" style="vertical-align: middle;"> <?= $noticia['data_criacao'] ?></td>
+                            <td class="text-center" style="vertical-align: middle;">
+                                <a href="../noticias/info.php?id=<?= $noticia['id'] ?>"> Ver Noticia </a>
+                            </td>
+                        </tr>
+
+                    <?php endforeach ?>
                 </tbody>
             </table>
+
         </div>
 
         <div class="table-footer py-2 d-flex justify-content-end px-4">
