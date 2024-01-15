@@ -8,6 +8,28 @@ class Noticias
 
     public function __construct( private $pdo  ){}
 
+
+    public function todas_noticias()
+    {
+        $query = "SELECT * FROM noticias";
+
+        $sql = $this->pdo->prepare( $query );
+        $sql->execute();
+
+        return $sql;
+    }
+
+    public function noticias_em_destaque()
+    {
+        $query = "SELECT * FROM noticias WHERE destaque = :destaque";
+
+        $sql = $this->pdo->prepare( $query );
+        $sql->bindValue( ':destaque', 1 );
+        $sql->execute();
+
+        return $sql;
+    }
+
     public function criar_noticia( $dados, $id )
     {
 
@@ -45,6 +67,39 @@ class Noticias
         $sql->execute();        
 
         move_uploaded_file($arquivo['tmp_name'], '../'.$caminho);
+    }
+
+    public function adicionar_destaque( $id )
+    {
+
+        $noticias_em_destaque = $this->noticias_em_destaque();
+        if( $noticias_em_destaque->rowCount() >= 3 ) echo "<script>alert( O máximo de notícias foi atingido, remova um destaque e tente novamente. );</script>";
+
+        $query = " UPDATE noticias SET destaque = :destaque WHERE id = :id ";
+
+        $sql = $this->pdo->prepare($query);
+        $sql->bindValue( ':id', $id );
+        $sql->bindValue( ':destaque', 1 );
+        $sql->execute();
+
+        echo "<script>alert( Noticia adicionada aos destaques. );</script>";
+
+    }
+
+    public function remover_destaque( $id )
+    {
+
+        $noticias_em_destaque = $this->noticias_em_destaque();
+        if( $noticias_em_destaque->rowCount() >= 3 ) echo "<script>alert( O máximo de notícias foi atingido, remova um destaque e tente novamente. );</script>";
+
+        $query = " UPDATE noticias SET destaque = :destaque WHERE id = :id ";
+        $sql = $this->pdo->prepare($query);
+        $sql->bindValue( ':id', $id );
+        $sql->bindValue( ':destaque', 0 );
+        $sql->execute();
+
+        echo "<script>alert( Noticia removida dos destaques. );</script>";
+
     }
 
 }
