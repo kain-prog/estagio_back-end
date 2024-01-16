@@ -16,7 +16,7 @@ CREATE TABLE usuarios (
 
 CREATE TABLE noticias (
     id INT NOT NULL AUTO_INCREMENT,
-    titulo VARCHAR(25) NOT NULL,
+    titulo VARCHAR(50) NOT NULL,
     data_criacao DATE NOT NULL,
     resumo VARCHAR(100) NOT NULL,
     imagem VARCHAR(255),
