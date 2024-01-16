@@ -84,8 +84,7 @@
 
     </div>
 
-
-    <div class="card">
+    <div class="card mb-4">
         <div class="card-header">Notícias em Destaque</div>
         <div class="card-body">
             <div class="d-flex gap-3 justify-content-end my-3">
@@ -123,7 +122,54 @@
                     <?php endforeach ?>
                 </tbody>
             </table>
+        </div>
+    </div>
 
+    <h5 class="my-5 text-center text-secondary">Sessão de usuários</h5>
+
+    <div class="card">
+        <div class="card-header">Listagem de todos os Assinantes</div>
+        <div class="card-body">
+            <div class="d-flex gap-3 justify-content-end my-3">
+                <a href="../noticias/todas.php" class="btn btn-sm btn-secondary text-white">Gerenciar notícias</a>
+            </div>
+
+
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <td class="text-center">Nome</td>
+                        <td class="text-center">E-mail</td>
+                        <td class="text-center">CPF</td>
+                        <td class="text-center">Endereço</td>                         
+                        <td class="text-center">Cidade</td>                         
+                        <td class="text-center">UF</td>                         
+                        <td class="text-center"></td>                         
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach( $todos_usuarios as $usuario ): ?>
+
+                        <tr>
+                            <td class="text-center" style="vertical-align: middle;"> <?= $usuario['nome'] ?> </td>
+                            <td class="text-center" style="vertical-align: middle;"> <?= $usuario['email'] ?></td>
+                            <td class="text-center" style="vertical-align: middle;"> <?= $usuario['cpf'] ?></td>
+                            <td class="text-center" style="vertical-align: middle;"> <?= $usuario['endereco'] ?></td>
+                            <td class="text-center" style="vertical-align: middle;"> <?= $usuario['cidade'] ?></td>
+                            <td class="text-center" style="vertical-align: middle;"> <?= $usuario['uf'] ?></td>
+                            <td class="text-center" style="vertical-align: middle;">
+                                <small class="me-2">
+                                    <a style="font-size:12px" class="text-decoration-none " href="./perfil.php?id=<?= $usuario['id'] ?>"> Editar </a>
+                                </small>
+                                <small>
+                                    <a style="font-size:12px" class="text-decoration-none btn btn-danger btn-sm" href="../noticias/info.php?id=<?= $usuario['id'] ?>"> Excluir </a>
+                                </small>
+                            </td>
+                        </tr>
+
+                    <?php endforeach ?>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
