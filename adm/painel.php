@@ -35,6 +35,17 @@
             exit;
         }
 
+        if( !empty( $_POST['id'] && $_POST['apagar'] )){
+            
+            $remover_usuario_id = $_POST['id'];
+            $retorno = $usuarios_class->excluir_usuario( $remover_usuario_id );
+
+            if( $retorno['sucesso'] ){
+                header( 'Refresh: 0' );
+                exit;
+            }
+        }
+
 
     }else {
         header( 'Location: ../login.php' );
@@ -128,14 +139,14 @@
     <h5 class="my-5 text-center text-secondary">Sessão de usuários</h5>
 
     <div class="card">
-        <div class="card-header">Listagem de todos os Assinantes</div>
+        <div class="card-header">Listagem de todos os Assinantes - <span class="text-primary"><?= $quantidade_usuarios ?></span></div>
         <div class="card-body">
             <div class="d-flex gap-3 justify-content-end my-3">
-                <a href="../noticias/todas.php" class="btn btn-sm btn-secondary text-white">Gerenciar notícias</a>
+                <a href="../adm/criar-usuario.php" class="btn btn-sm btn-success text-white">Adicionar Usuário</a>
             </div>
 
 
-            <table class="table table-striped table-hover">
+            <table class="table table-striped table-hover overflow-scroll">
                 <thead>
                     <tr>
                         <td class="text-center">Nome</td>
@@ -158,12 +169,20 @@
                             <td class="text-center" style="vertical-align: middle;"> <?= $usuario['cidade'] ?></td>
                             <td class="text-center" style="vertical-align: middle;"> <?= $usuario['uf'] ?></td>
                             <td class="text-center" style="vertical-align: middle;">
-                                <small class="me-2">
-                                    <a style="font-size:12px" class="text-decoration-none " href="./perfil.php?id=<?= $usuario['id'] ?>"> Editar </a>
-                                </small>
-                                <small>
-                                    <a style="font-size:12px" class="text-decoration-none btn btn-danger btn-sm" href="../noticias/info.php?id=<?= $usuario['id'] ?>"> Excluir </a>
-                                </small>
+
+                                <div class="d-flex gap-2 justify-content-center align-items-center">
+                                    <small class="">
+                                        <a style="font-size:12px font-weight: 700" class="text-decoration-none " href="./perfil.php?id=<?= $usuario['id'] ?>"> Editar </a>
+                                    </small>
+
+                                    <small>
+                                        <form method="POST">
+                                            <input type="hidden" name="id" value="<?= $usuario['id'] ?>">
+                                            <input class="nav-link text-danger" name="apagar" type="submit" value="Apagar" style="font-size:12px; font-weight: 700">
+                                        </form>
+                                    </small>
+                                </div>
+                               
                             </td>
                         </tr>
 
