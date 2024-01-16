@@ -101,14 +101,21 @@
             <input type="submit" class="btn w-100 py-3 text-white" name="criar_noticia" value="Criar Notícia" style="background-color: #315d7b" />
         </div>
 
-        <hr />
-
     </form>
 
-    <div class="d-flex justify-content-end w-100 m-auto mt-3 mb-5" style="max-width: 767px;">
-        <a class="text-decoration-none" href="../noticias/todas.php">Ver todas as notícias</a>
-    </div>
+    <?php if( $usuario_logado['adm']){  ?>
 
+        <div class="d-flex justify-content-end w-100 m-auto mt-3 mb-5" style="max-width: 767px;">
+            <a class="text-decoration-none" href="../noticias/todas.php">gerenciamento de notícias</a>
+        </div>
+
+    <?php } else { ?>
+
+        <div class="d-flex justify-content-end w-100 m-auto mt-3 mb-5" style="max-width: 767px;">
+            <a class="text-decoration-none" href="../noticias/todas.php">Ver todas as notícias</a>
+        </div>
+
+    <?php } ?>
 
 </div>
 
