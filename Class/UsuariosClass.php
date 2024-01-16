@@ -108,8 +108,10 @@ class Usuarios
             $sql->bindValue( ':adm', $adm );
             $sql->execute();            
 
-            
-            header( 'Location: ./login.php' );
+            echo "<script>alert( 'Usuário registrado com sucesso!' )</script>";
+            $resultado = array( 'sucesso' => true, 'mensagem' => 'Usuário registrado com sucesso!' );
+            return $resultado;
+        
         }
 
     }
@@ -179,6 +181,8 @@ class Usuarios
 
             $sql->execute();
 
+            echo "<script>alert( 'Seus dados foram atualizados com sucesso!' )</script>";
+
             $resultado = array( 'sucesso' => true, 'mensagem' => 'Seus dados foram atualizados com sucesso!' );
             return $resultado;
 
@@ -202,6 +206,22 @@ class Usuarios
             $resultado = array( 'sucesso' => true, 'mensagem' => 'Seus dados foram atualizados com sucesso!' );
             return $resultado;
         }
+    }
+
+    public function excluir_usuario( $id )
+    {
+
+        $query = "DELETE FROM usuarios WHERE id = :id";
+
+        $sql = $this->pdo->prepare( $query );
+        $sql->bindValue( ':id', $id );
+        $sql->execute();
+
+        echo "<script>alert( 'O usuário foi removido com sucesso!' )</script>";
+
+        $resultado = array( 'sucesso' => true, 'mensagem' => 'O usuário foi removido com sucesso!' );
+        return $resultado;
+
     }
 
     public function logout()
