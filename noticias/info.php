@@ -14,7 +14,6 @@
 
         $id_noticia = $_GET['id'];
         $noticias_class = new Noticias( $pdo );
-        // Todas Noticias
         $noticia = $noticias_class->listar_por_id( $id_noticia )->fetch();
 
 
