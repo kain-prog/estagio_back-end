@@ -34,7 +34,7 @@
             $destroy = $noticias_class->apagar_noticia( $id_noticia );
 
             if( $destroy['sucesso'] ){
-                header( 'Location: ./todas.php' );
+                header( 'Refresh: 0' );
                 exit;
             }
         }
@@ -44,7 +44,7 @@
             $destaque = $noticias_class->destacar_toggle( $noticia_id );
 
             if( $destaque['sucesso'] ){
-                header( 'Location: ./todas.php' );
+                header( 'Refresh: 0' );
                 exit;
             }
         }
