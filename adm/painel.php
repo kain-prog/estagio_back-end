@@ -88,10 +88,8 @@
     <div class="card">
         <div class="card-header">Notícias em Destaque</div>
         <div class="card-body">
-
             <div class="d-flex gap-3 justify-content-end my-3">
-                <a href="../noticias/criar.php" class="btn btn-sm text-white" style="background: #315d7b">Nova notícia</a>
-                <a href="#" class="btn btn-sm btn-secondary text-white">Gerenciar notícias</a>
+                <a href="../noticias/todas.php" class="btn btn-sm btn-secondary text-white">Gerenciar notícias</a>
             </div>
 
 
@@ -102,7 +100,7 @@
                         <td class="text-center">Título</td>
                         <td class="text-center">Resumo</td>
                         <td class="text-center">Data</td>                         
-                        <td class="text-center">Ações</td>                         
+                        <td class="text-center"></td>                         
                     </tr>
                 </thead>
                 <tbody>
@@ -116,7 +114,9 @@
                             <td class="text-center" style="vertical-align: middle;"> <?= $noticia['resumo'] ?></td>
                             <td class="text-center" style="vertical-align: middle;"> <?= $noticia['data_criacao'] ?></td>
                             <td class="text-center" style="vertical-align: middle;">
-                                <a href="../noticias/info.php?id=<?= $noticia['id'] ?>"> Ver Noticia </a>
+                                <small>
+                                    <a class="text-decoration-none" href="../noticias/info.php?id=<?= $noticia['id'] ?>"> Ver Noticia </a>
+                                </small>
                             </td>
                         </tr>
 
@@ -125,14 +125,7 @@
             </table>
 
         </div>
-
-        <div class="table-footer py-2 d-flex justify-content-end px-4">
-            <a href="../noticias/todas.php" class="text-decoration-none">Todas as notícias</a>
-        </div>
     </div>
-
-
-
 </div>
 
 
