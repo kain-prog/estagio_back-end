@@ -77,7 +77,7 @@
     </form>
 
     <div class="d-flex justify-content-end w-100 m-auto mt-3" style="max-width: 567px;">
-        <a href="./index.php">Página inicial</a>
+        <a class="text-decoration-none" href="./index.php">Página inicial</a>
     </div>
 
 </div>
