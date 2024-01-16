@@ -8,6 +8,10 @@
     
     if( !empty( $_SESSION['internit-login'] ) ){
 
+        $id = $_SESSION['internit-login'];
+        $usuarios_class = new Usuarios( $pdo );
+        $usuario_logado = $usuarios_class->listar_por_id( $id );
+
         $id_noticia = $_GET['id'];
         $noticias_class = new Noticias( $pdo );
         // Todas Noticias
