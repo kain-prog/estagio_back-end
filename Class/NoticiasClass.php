@@ -8,11 +8,9 @@ class Noticias
 
     public function __construct( private $pdo  ){}
 
-
     public function todas_noticias()
     {
-        $query = "SELECT * FROM noticias";
-
+        $query = "SELECT *, DATE_FORMAT (data_criacao, '%d/%m/%Y') AS data_criacao FROM noticias";
         $sql = $this->pdo->prepare( $query );
         $sql->execute();
 
@@ -21,29 +19,46 @@ class Noticias
 
     public function noticias_em_destaque()
     {
-        $query = "SELECT * FROM noticias WHERE destaque = :destaque";
-
+        $query = "SELECT *, DATE_FORMAT (data_criacao, '%d/%m/%Y') AS data_criacao FROM noticias WHERE destaque = :destaque ";
         $sql = $this->pdo->prepare( $query );
         $sql->bindValue( ':destaque', 1 );
         $sql->execute();
 
         return $sql;
+
+    }
+
+    public function listar_por_id( $id )
+    {
+        $query = "SELECT *, DATE_FORMAT (data_criacao, '%d/%m/%Y') AS data_criacao FROM noticias WHERE id = :id ";
+        $sql = $this->pdo->prepare( $query );
+        $sql->bindValue( ':id', $id );
+        $sql->execute();
+
+        return $sql;
+
     }
 
     public function criar_noticia( $dados, $id )
     {
-
         $arquivo = $dados['imagem'];
         $nome = $arquivo['name'];
         $caminho = 'Uploads/Noticias/' . uniqid('', true) . $nome ;
 
-        $utc_timezone = new DateTimeZone("UTC");
-        $rj = new DateTimeZone("America/Sao_Paulo");
-
         $data_formatada = str_replace("/", "-", $dados['data_criacao']);
-        $data_criacao = new DateTime($data_formatada, $utc_timezone );
-        $data_criacao->setTimezone( $rj );
-        $data_criacao = $data_criacao->format('Y-m-d');
+
+        $validacao_data = DateTime::createFromFormat('d-m-Y', $data_formatada);
+        $dia = $validacao_data->format('d');
+        $mes = $validacao_data->format('m');
+        $ano = $validacao_data->format('Y');
+        
+        if(!checkdate( $mes, $dia, $ano )){
+            echo "<script>alert('Por favor, selecione uma data válida!');</script>" ;
+
+            return ;
+        }       
+
+        $data_criacao = $validacao_data->format('Y-m-d');
 
         $titulo = addslashes( $dados['titulo'] );
         $resumo = addslashes( $dados['resumo'] );
@@ -67,39 +82,58 @@ class Noticias
         $sql->execute();        
 
         move_uploaded_file($arquivo['tmp_name'], '../'.$caminho);
+        
+        echo "<script>alert('Notícia criada com sucesso!');</script>" ;
     }
 
-    public function adicionar_destaque( $id )
+    public function editar_noticia()
     {
+        // Todo;
+        echo "<script>alert('Notícia deletada com sucesso!');</script>" ;
+    }
 
-        $noticias_em_destaque = $this->noticias_em_destaque();
-        if( $noticias_em_destaque->rowCount() >= 3 ) echo "<script>alert( O máximo de notícias foi atingido, remova um destaque e tente novamente. );</script>";
-
-        $query = " UPDATE noticias SET destaque = :destaque WHERE id = :id ";
-
-        $sql = $this->pdo->prepare($query);
+    public function apagar_noticia( $id )
+    {
+        $query = ( "DELETE FROM noticias WHERE id = :id" );
+        $sql = $this->pdo->prepare( $query );
         $sql->bindValue( ':id', $id );
-        $sql->bindValue( ':destaque', 1 );
         $sql->execute();
 
-        echo "<script>alert( Noticia adicionada aos destaques. );</script>";
-
+        return true;
     }
 
-    public function remover_destaque( $id )
+    public function destacar_toggle( $id )
     {
 
-        $noticias_em_destaque = $this->noticias_em_destaque();
-        if( $noticias_em_destaque->rowCount() >= 3 ) echo "<script>alert( O máximo de notícias foi atingido, remova um destaque e tente novamente. );</script>";
+        
 
-        $query = " UPDATE noticias SET destaque = :destaque WHERE id = :id ";
-        $sql = $this->pdo->prepare($query);
-        $sql->bindValue( ':id', $id );
-        $sql->bindValue( ':destaque', 0 );
-        $sql->execute();
+        $noticia = $this->listar_por_id( $id )->fetch();
 
-        echo "<script>alert( Noticia removida dos destaques. );</script>";
+        if( !$noticia['destaque'] ){
 
+            $noticias_em_destaque = $this->noticias_em_destaque();
+
+            if( $noticias_em_destaque->rowCount() >= 3 ){
+                echo "<script>alert( 'O máximo de notícias foi atingido, remova um destaque e tente novamente.' );</script>"; 
+                return ;
+            }
+
+            $query = " UPDATE noticias SET destaque = :destaque WHERE id = :id ";
+            $sql = $this->pdo->prepare($query);
+            $sql->bindValue( ':id', $id );
+            $sql->bindValue( ':destaque', 1 );
+            $sql->execute();
+
+        } else {
+
+            $query = " UPDATE noticias SET destaque = :destaque WHERE id = :id ";
+            $sql = $this->pdo->prepare($query);
+            $sql->bindValue( ':id', $id );
+            $sql->bindValue( ':destaque', 0 );
+            $sql->execute();
+
+        } 
+
+        return true;
     }
-
 }

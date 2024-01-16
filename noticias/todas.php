@@ -31,8 +31,17 @@
         if( !empty( $_POST['id'] && $_POST['apagar'] ) ){
             $id_noticia = $_POST['id'];
             $destroy = $noticias_class->apagar_noticia( $id_noticia );
-            
+
             if( $destroy ){
+                header( 'Location: ./todas.php' );
+            }
+        }
+
+        if( !empty( $_POST['id'] && $_POST['destacar'] )){
+            $noticia_id = $_POST['id'];
+            $destaque = $noticias_class->destacar_toggle( $noticia_id );
+
+            if( $destaque ){
                 header( 'Location: ./todas.php' );
             }
         }
