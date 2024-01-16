@@ -25,15 +25,17 @@
 
         if( !empty( $_GET['id'] && $_GET['editar'] ) ){
             $noticia_id = $_GET['id'];
-            header( 'Location: ./teste.php?id=' . $noticia_id );
+            header( 'Location: ./editar.php?id=' . $noticia_id );
+            exit;
         }
 
         if( !empty( $_POST['id'] && $_POST['apagar'] ) ){
             $id_noticia = $_POST['id'];
             $destroy = $noticias_class->apagar_noticia( $id_noticia );
 
-            if( $destroy ){
+            if( $destroy['sucesso'] ){
                 header( 'Location: ./todas.php' );
+                exit;
             }
         }
 
@@ -41,8 +43,9 @@
             $noticia_id = $_POST['id'];
             $destaque = $noticias_class->destacar_toggle( $noticia_id );
 
-            if( $destaque ){
+            if( $destaque['sucesso'] ){
                 header( 'Location: ./todas.php' );
+                exit;
             }
         }
         
@@ -65,15 +68,22 @@
 
 <div class="container m-auto">
     <div class="my-5">
-        <h1 class="text-center">Todas as Notícias</h1>
-        <p class="text-center">Fique por dentro de todas as novidades da nossa plataforma.</p>
+        
 
-        <?php if( $usuario_logado['adm'] ):  ?>
+        <?php if( $usuario_logado['adm'] ){  ?>
+
+            <h1 class="text-center">Gerenciamento de Notícias</h1>
+            <p class="text-center">Gerencie as notícias como você quiser.</p>
 
             <a class="btn mt-3 btn-sm text-white" href="./criar.php" style="background: #315d7b;" >Criar notícia</a>
             <hr />
 
-        <?php endif ?>
+        <?php } else { ?>
+
+            <h1 class="text-center">Todas as Notícias</h1>
+            <p class="text-center">Fique por dentro de todas as novidades da nossa plataforma.</p>
+
+        <?php } ?>
 
     </div>
 
