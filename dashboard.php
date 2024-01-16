@@ -6,6 +6,7 @@
 
     require './Database/Conexao.php';
     require './Class/UsuariosClass.php';
+    require './Class/ProdutosClass.php';
     
     include './Includes/layout-cabecalho.php';
 
@@ -21,6 +22,13 @@
         }
 
         // listagem de produtos
+        $produtos_class = new Produtos( $pdo );
+        $quantidade_produtos_ativos = $produtos_class->listar_todos_produtos_ativos( $id )->rowCount();
+        $quantidade_produtos_cadastrados = $produtos_class->listar_todos_produtos_do_usuario( $id )->rowCount();
+
+        if( $quantidade_produtos_ativos != 0 ){
+            $todos_produtos_ativos = $produtos_class->listar_todos_produtos_ativos( $id )->fetchAll();
+        }
 
         
     }else{
@@ -53,14 +61,14 @@
                 <div class="card text-bg-success mb-3" style="max-width: 18rem;">
                     <div class="card-header" style="border-bottom: none !important;">Produtos Ativos</div>
                     <div class="card-body d-flex align-items-center justify-content-center">
-                        <h2 class="fs-1 fw-normal text-center fst-italic"> <?= $quantidade_usuarios ?></h2>
+                        <h2 class="fs-1 fw-normal text-center fst-italic"> <?= $quantidade_produtos_ativos ?> </h2>
                     </div>
                 </div>
 
                 <div class="card mb-3" style="max-width: 18rem; background: #315d7b">
                     <div class="card-header text-white" style="border-bottom: none !important;">Produtos Cadastrados</div>
                     <div class="card-body text-white d-flex align-items-center justify-content-center">
-                        <h2 class="fs-1 fw-normal fst-italic">4</h2>
+                        <h2 class="fs-1 fw-normal fst-italic"> <?= $quantidade_produtos_cadastrados ?> </h2>
                     </div>
                 </div>
             </div>
@@ -75,24 +83,37 @@
             </div>
 
             <div class="card-body">
+                <div class="d-flex gap-3 justify-content-end my-3">
+                    <a href="#" class="btn btn-sm text-white" style="background:#315d7b">Criar Produtos</a>
+                    <a href="#" class="btn btn-sm btn-secondary text-white">Gerenciar Produtos</a>
+                </div>
+
                 <table class="table table-striped table-hover">
                     <thead>
                         <tr>
                             <td class="text-center">Imagem</td>
                             <td class="text-center">Nome</td>
                             <td class="text-center">Quantidade</td>
-                            <td class="text-center">Valor</td>                      
+                            <td class="text-center">Valor</td>                                   
+                            <td class="text-center"></td>                      
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
+                        <?php foreach( $todos_produtos_ativos as $produto ): ?>
+
+                            <tr>
+                                <td class="text-center">
+                                    <img src="./Uploads/Produtos/<?= $produto['usuario_id'] ?>/<?= $produto['imagem'] ?>" alt="<?= $produto['nome'] ?>">
+                                </td>
+                                <td class="text-center"> <?= $produto['nome'] ?> </td>
+                                <td class="text-center"> <?= $produto['quantidade'] ?> </td>   
+                                <td class="text-center"> <?= $produto['valor'] ?> </td>  
+                                <td class="d-flex justify-content-center">
+                                    <a class="text-decoration-none" href="./produtos/info.php?id=<?= $produto['id'] ?>">Ver produto</a>
+                                </td>
+                            </tr>
+
+                        <?php endforeach ?>
                     </tbody>
                 </table>
             </div>
