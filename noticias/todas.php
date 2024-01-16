@@ -22,6 +22,20 @@
         $quantidade_noticias = $noticias_class->todas_noticias()->rowCount();
         $noticias = $noticias_class->todas_noticias()->fetchAll();
 
+
+        if( !empty( $_GET['id'] && $_GET['editar'] ) ){
+            $noticia_id = $_GET['id'];
+            header( 'Location: ./teste.php?id=' . $noticia_id );
+        }
+
+        if( !empty( $_POST['id'] && $_POST['apagar'] ) ){
+            $id_noticia = $_POST['id'];
+            $destroy = $noticias_class->apagar_noticia( $id_noticia );
+            
+            if( $destroy ){
+                header( 'Location: ./todas.php' );
+            }
+        }
         
     }else{
         header( 'Location: ../login.php' );
@@ -47,7 +61,8 @@
 
         <?php if( $usuario_logado['adm'] ):  ?>
 
-            <a class="btn btn-sm text-white" href="./criar.php" style="background: #315d7b;" >Criar notícia</a>
+            <a class="btn mt-3 btn-sm text-white" href="./criar.php" style="background: #315d7b;" >Criar notícia</a>
+            <hr />
 
         <?php endif ?>
 
