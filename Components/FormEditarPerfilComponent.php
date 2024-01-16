@@ -7,46 +7,46 @@
 
     <div class="mb-3">
         <label for="nome">Nome:</label>
-        <input type="text" class="form-control" name="nome" id="nome" style="box-shadow: none !important;" placeholder="Jonh Doe" required value="<?= $usuario_logado['nome'] ?>">
+        <input type="text" class="form-control" name="nome" id="nome" style="box-shadow: none !important;" placeholder="Jonh Doe" required value="<?= $usuario_input['nome'] ?>">
     </div>
 
     <div class="row ">
 
         <div class="mb-3 col-5">
             <label for="cpf">CPF:</label>
-            <input type="tel" class="form-control" name="cpf" id="cpf" style="box-shadow: none !important;" placeholder="12345678901" required value="<?= $usuario_logado['cpf'] ?>">
+            <input type="tel" class="form-control" name="cpf" id="cpf" style="box-shadow: none !important;" placeholder="12345678901" required value="<?= $usuario_input['cpf'] ?>">
         </div>
 
         
         <div class="mb-3 col">
             <label for="email">E-mail:</label>
-            <input type="text" class="form-control" name="email" id="email" style="box-shadow: none !important;" placeholder="exemplo@exemplo.com" required value="<?= $usuario_logado['email'] ?>">
+            <input type="text" class="form-control" name="email" id="email" style="box-shadow: none !important;" placeholder="exemplo@exemplo.com" required value="<?= $usuario_input['email'] ?>">
         </div>
 
     </div>
 
     <div class="mb-3">
         <label for="endereco">Endereço:</label>
-        <input type="text" class="form-control" name="endereco" id="endereco" style="box-shadow: none !important;" placeholder="Rua Sérgio Amado, 155" required value="<?= $usuario_logado['endereco'] ?>">
+        <input type="text" class="form-control" name="endereco" id="endereco" style="box-shadow: none !important;" placeholder="Rua Sérgio Amado, 155" required value="<?= $usuario_input['endereco'] ?>">
     </div>
 
     
     <div class="row">
         <div class="mb-3 col">
             <label for="cidade">Cidade:</label>
-            <input type="text" class="form-control" name="cidade" id="cidade" style="box-shadow: none !important;" placeholder="Niterói" required value="<?= $usuario_logado['cidade'] ?>" >
+            <input type="text" class="form-control" name="cidade" id="cidade" style="box-shadow: none !important;" placeholder="Niterói" required value="<?= $usuario_input['cidade'] ?>" >
         </div>
 
         
         <div class="mb-3 col-3">
             <label for="uf">UF:</label>
-            <input type="text" class="form-control" name="uf" id="uf" style="box-shadow: none !important;" placeholder="RJ" required value="<?= $usuario_logado['uf'] ?>" >
+            <input type="text" class="form-control" name="uf" id="uf" style="box-shadow: none !important;" placeholder="RJ" required value="<?= $usuario_input['uf'] ?>" >
         </div>
     </div>
 
     <div class="mb-3">
         <label for="senha">Senha atual:</label>
-        <input type="password" class="form-control" name="senha_atual" id="senha" style="box-shadow: none !important;" placeholder="******" value="<?= $usuario_logado['senha'] ?>" >
+        <input type="password" class="form-control" name="senha_atual" id="senha" style="box-shadow: none !important;" placeholder="******" value="<?= $usuario_input['senha'] ?>" >
     </div>
 
     <div class="mb-3">
