@@ -41,6 +41,16 @@ class Noticias
 
     public function criar_noticia( $dados, $id )
     {
+        if( strlen( $dados['titulo']) > 50 ){
+            echo "<script>alert('O título inserido é muito grande, o máximo são 50 caracteres.');</script>" ;
+            return;
+        }
+
+        if( strlen( $dados['resumo']) > 100 ){
+            echo "<script>alert('O resumo inserido é muito grande, o máximo são 100 caracteres.');</script>" ;
+            return;
+        }
+
         $arquivo = $dados['imagem'];
         $nome = $arquivo['name'];
         $caminho = 'Uploads/Noticias/' . uniqid('', true) . $nome ;
@@ -86,10 +96,94 @@ class Noticias
         echo "<script>alert('Notícia criada com sucesso!');</script>" ;
     }
 
-    public function editar_noticia()
-    {
-        // Todo;
-        echo "<script>alert('Notícia deletada com sucesso!');</script>" ;
+    public function atualizar_dados( $id, $dados )
+    {   
+
+        if( strlen($dados['titulo'])  > 50  ){
+            echo "<script>alert('O título inserido é muito grande, o máximo são 50 caracteres.');</script>" ;
+            return;
+        }
+
+        if( strlen($dados['resumo']) > 100 ){
+            echo "<script>alert('O resumo inserido é muito grande, o máximo são 100 caracteres.');</script>" ;
+            return;
+        }
+
+        $imagem_vazia = strlen( $dados['imagem']['name'] );
+
+        $data_formatada = str_replace("/", "-", $dados['data_criacao']);
+    
+        $validacao_data = DateTime::createFromFormat('d-m-Y', $data_formatada);
+        $dia = $validacao_data->format('d');
+        $mes = $validacao_data->format('m');
+        $ano = $validacao_data->format('Y');
+        
+        if(!checkdate( $mes, $dia, $ano )){
+            echo "<script>alert('Por favor, selecione uma data válida!');</script>" ;
+
+            return ;
+        }       
+
+        $data_criacao = $validacao_data->format('Y-m-d');
+
+        //** */
+        //*     validacao de imagem
+        //** */
+
+        if( $imagem_vazia <= 0 ){
+    
+            $titulo = addslashes( $dados['titulo'] );
+            $resumo = addslashes( $dados['resumo'] );
+            $conteudo = addslashes( $dados['conteudo'] );
+
+            $query = "UPDATE `noticias` SET `titulo` = :titulo, `resumo` = :resumo, `data_criacao` = :data_criacao, `conteudo` = :conteudo WHERE `id` = :id ";
+            $sql = $this->pdo->prepare( $query );
+            $sql->bindValue( ':id', $id );
+            $sql->bindValue( ':titulo', $titulo  );
+            $sql->bindValue( ':resumo', $resumo  );
+            $sql->bindValue( ':conteudo', $conteudo  );
+            $sql->bindValue( ':data_criacao', $data_criacao );
+            $sql->execute();
+
+            $retorno = array( 'sucesso' => true , 'mensagem' => 'Notícia atualizada com sucesso!' );
+            return $retorno;
+
+        } else {
+
+            $dados_antigos = $this->listar_por_id( $id )->fetch();
+
+            // Remover foto antiga
+            if (file_exists( '../' . $dados_antigos['imagem'] )) {
+                unlink( '../' . $dados_antigos['imagem'] );
+            }
+
+            $arquivo = $dados['imagem'];
+            $nome = $arquivo['name'];
+            $caminho = 'Uploads/Noticias/' . uniqid('', true) . $nome ;
+            
+            $titulo = addslashes( $dados['titulo'] );
+            $resumo = addslashes( $dados['resumo'] );
+            $conteudo = addslashes( $dados['conteudo'] );
+
+            $query = "UPDATE `noticias` SET `titulo` = :titulo, `resumo` = :resumo, `imagem` = :imagem, `data_criacao` = :data_criacao, `conteudo` = :conteudo WHERE `id` = :id ";
+           
+            $sql = $this->pdo->prepare( $query );
+            $sql->bindValue( ':id', $id );
+            $sql->bindValue( ':titulo', $titulo  );
+            $sql->bindValue( ':resumo', $resumo  );
+            $sql->bindValue( ':imagem', $caminho );
+            $sql->bindValue( ':data_criacao', $data_criacao );
+            $sql->bindValue( ':conteudo', $conteudo  );
+            $sql->execute();
+
+            // Adicionar foto nova
+            move_uploaded_file($arquivo['tmp_name'], '../'.$caminho);
+
+            $retorno = array( 'sucesso' => true , 'mensagem' => 'Notícia atualizada com sucesso!' );
+            
+            return $retorno;
+
+        }        
     }
 
     public function apagar_noticia( $id )
@@ -99,14 +193,12 @@ class Noticias
         $sql->bindValue( ':id', $id );
         $sql->execute();
 
-        return true;
+        $retorno = array( 'sucesso' => true , 'mensagem' => 'Notícia apagada com sucesso!' );
+        return $retorno;
     }
 
     public function destacar_toggle( $id )
-    {
-
-        
-
+    {       
         $noticia = $this->listar_por_id( $id )->fetch();
 
         if( !$noticia['destaque'] ){
@@ -124,6 +216,8 @@ class Noticias
             $sql->bindValue( ':destaque', 1 );
             $sql->execute();
 
+            return array( 'sucesso' => true, 'mensagem' => 'A notícia foi adicionada ao destaque com sucesso.' );
+
         } else {
 
             $query = " UPDATE noticias SET destaque = :destaque WHERE id = :id ";
@@ -132,8 +226,8 @@ class Noticias
             $sql->bindValue( ':destaque', 0 );
             $sql->execute();
 
-        } 
+            return array( 'sucesso' => true, 'mensagem' => 'A notícia foi removida do destaque com sucesso.' );
 
-        return true;
+        } 
     }
 }
