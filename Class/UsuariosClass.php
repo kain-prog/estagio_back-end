@@ -108,7 +108,7 @@ class Usuarios
             $sql->bindValue( ':adm', $adm );
             $sql->execute();            
 
-            echo "<script>alert( 'Seus dados foram atualizados com sucesso!' )</script>";
+            
             header( 'Location: ./login.php' );
         }
 
@@ -134,13 +134,22 @@ class Usuarios
     public function atualizar_dados( $id, $dados)
     {
 
+        $cpf = explode('.', $dados['cpf']);
+        $cpf_formatado = explode('-', implode( $cpf ) );
+        $cpf_formatado = implode($cpf_formatado);
+
+        if( strlen($dados['cpf']) < 11 ){
+            echo "<script>alert( 'Insira um CPF válido.' )</script>";
+            return ;
+        }
+
         if( empty( $dados['senha_atual'] ) ){
             echo "<script>alert( 'A senha atual é obrigatória' )</script>";
             return ;
         }
 
         $nome = addslashes( $dados['nome'] );
-        $cpf = addslashes( $dados['cpf'] );
+        $cpf = addslashes( $cpf_formatado );
         $email = addslashes( $dados['email'] );
         $endereco = addslashes( $dados['endereco'] );
         $cidade = addslashes( $dados['cidade'] );
@@ -170,7 +179,8 @@ class Usuarios
 
             $sql->execute();
 
-            echo "<script>alert( 'Seus dados foram atualizados com sucesso!' )</script>";
+            $resultado = array( 'sucesso' => true, 'mensagem' => 'Seus dados foram atualizados com sucesso!' );
+            return $resultado;
 
         } else {
 
@@ -189,6 +199,8 @@ class Usuarios
 
             echo "<script>alert( 'Seus dados foram atualizados com sucesso!' )</script>";
 
+            $resultado = array( 'sucesso' => true, 'mensagem' => 'Seus dados foram atualizados com sucesso!' );
+            return $resultado;
         }
     }
 
