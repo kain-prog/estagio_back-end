@@ -1,6 +1,6 @@
 <style>
     .todas-noticias{
-        width: 560px;
+        width: 525px;
         height: 170px;
         min-height: 170px;
     }
@@ -15,23 +15,38 @@
     }
 </style>
 
-<div class="row gap-4 container m-auto">
+<div class="row gap-3 justify-content-center container m-auto">
     <?php foreach( $noticias as $noticia ): ?>
 
     <a href="../noticias/info.php?id=<?= $noticia['id'] ?>" class="card txt-decoration-none todas-noticias text-decoration-none" style="transition: all ease 0.3s" onmouseover="this.style.scale = (1.02); this.style.background = '#e2e8ed';" onmouseout="this.style.scale = (1.0); this.style.background = 'none';" >
         <div class="row h-100">
             <div class="col-md-4 h-100">
-                <img src="../<?= $noticia['imagem'] ?>" class="h-100 rounded-start text-center imagem-noticias" alt="<?= $noticia['titulo'] ?>" style="">
+                <img src="../<?= $noticia['imagem'] ?>" class="h-100 rounded-start text-center imagem-noticias" alt="<?= $noticia['titulo'] ?>" style="object-fit: cover; object-position: left;">
             </div>
             <div class="col-md-8 h-100">
                 <div class="card-body">
                     <h5 class="card-title"><?= $noticia['titulo'] ?></h5>
                     <p class="card-text"><?= $noticia['resumo'] ?></p>
                     <p class="card-text"><small class="text-body-secondary"> <?= $noticia['data_criacao'] ?> </small></p>
+
                 </div>
+
+                <div class="d-flex py-3 py-lg-0 justify-content-end gap-2">
+                    <?php if( $usuario_logado['adm'] ): ?>
+                        <form method="GET">
+                            <input type="hidden" name="id" value="<?= $noticia['id'] ?>">
+                            <input class="btn btn-secondary btn-sm" type="submit" name="editar" value="Editar">
+                        </form>
+                        <form method="POST">
+                            <input type="hidden" name="id" value="<?= $noticia['id'] ?>">
+                            <input class="btn btn-danger btn-sm" name="apagar" type="submit" value="Apagar">
+                        </form>
+                    <?php endif ?>
+                </div>
+
             </div>
         </div>
+        
     </a>
-
     <?php endforeach ?>
 </div>
