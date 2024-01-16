@@ -47,7 +47,12 @@
         $dados = array( 'titulo' => $titulo, 'resumo' => $resumo, 'conteudo' => $conteudo, 'imagem' => $imagem, 'data_criacao' => $data_criacao );
 
         $noticias = new Noticias( $pdo );
-        $noticias->criar_noticia( $dados, $id );
+        $retorno = $noticias->criar_noticia( $dados, $id );
+
+        if( $retorno['sucesso'] ){
+            header('Refresh: 0');
+            exit;
+        }
 
     }
 ?>
