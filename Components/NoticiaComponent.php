@@ -12,6 +12,16 @@
     <p><?= $noticia['conteudo'] ?></p>
 </div>
 
-<div class="container w-100 d-flex justify-content-end">
-    <a class="text-decoration-none" href="../noticias/todas.php">Voltar para todas as notícias</a>
-</div>
+<?php if( $usuario_logado['adm'] ){ ?>
+
+    <div class="container w-100 d-flex justify-content-end">
+        <a class="text-decoration-none" href="../noticias/todas.php">Voltar para o gerenciamento de notícias</a>
+    </div>
+
+<?php } else { ?>
+
+    <div class="container w-100 d-flex justify-content-end">
+        <a class="text-decoration-none" href="../noticias/todas.php">Voltar para todas as notícias</a>
+    </div>
+
+<?php } ?>
