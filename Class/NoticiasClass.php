@@ -94,6 +94,8 @@ class Noticias
         move_uploaded_file($arquivo['tmp_name'], '../'.$caminho);
         
         echo "<script>alert('Notícia criada com sucesso!');</script>" ;
+        $retorno = array( 'sucesso' => true, 'mensagem' => 'Notícia criada com sucesso!' );
+        return $retorno;
     }
 
     public function atualizar_dados( $id, $dados )
@@ -145,6 +147,7 @@ class Noticias
             $sql->bindValue( ':data_criacao', $data_criacao );
             $sql->execute();
 
+            echo "<script>alert( 'A notícia foi atualizada com sucesso!' );</script>";
             $retorno = array( 'sucesso' => true , 'mensagem' => 'Notícia atualizada com sucesso!' );
             return $retorno;
 
@@ -179,6 +182,7 @@ class Noticias
             // Adicionar foto nova
             move_uploaded_file($arquivo['tmp_name'], '../'.$caminho);
 
+            echo "<script>alert( 'A notícia foi atualizada com sucesso!' );</script>";
             $retorno = array( 'sucesso' => true , 'mensagem' => 'Notícia atualizada com sucesso!' );
             
             return $retorno;
@@ -192,6 +196,8 @@ class Noticias
         $sql = $this->pdo->prepare( $query );
         $sql->bindValue( ':id', $id );
         $sql->execute();
+
+        echo "<script>alert( 'A notícia foi apagada com sucesso!' );</script>"; 
 
         $retorno = array( 'sucesso' => true , 'mensagem' => 'Notícia apagada com sucesso!' );
         return $retorno;
@@ -216,7 +222,10 @@ class Noticias
             $sql->bindValue( ':destaque', 1 );
             $sql->execute();
 
-            return array( 'sucesso' => true, 'mensagem' => 'A notícia foi adicionada ao destaque com sucesso.' );
+            echo "<script>alert( 'A notícia foi adicionada ao destaque com sucesso!' );</script>"; 
+            $retorno = array( 'sucesso' => true, 'mensagem' => 'A notícia foi adicionada ao destaque com sucesso!' );
+
+            return $retorno;
 
         } else {
 
@@ -226,8 +235,10 @@ class Noticias
             $sql->bindValue( ':destaque', 0 );
             $sql->execute();
 
-            return array( 'sucesso' => true, 'mensagem' => 'A notícia foi removida do destaque com sucesso.' );
+            echo "<script>alert( 'A notícia foi removida do destaque com sucesso!' );</script>"; 
+            $retorno = array( 'sucesso' => true, 'mensagem' => 'A notícia foi removida do destaque com sucesso!' );
 
+            return $retorno;
         } 
     }
 }
