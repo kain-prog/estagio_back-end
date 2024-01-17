@@ -55,7 +55,7 @@
 - [x] Text-> cidade
 - [x] Text-> uf
 - [x] Text-> senha
-- [x] Bool-> admin
+- [x] Bool-> adm
 
 
 ## - Tabela de Notícias
@@ -71,8 +71,8 @@
 
 ## - Tabela de Categorias
 
-- [x] Text-> nome
-- [x] Text->[unico] codigo
+- [x] Text-> nome_categoria
+- [x] Text->[unico] codigo_categoria
 - [x] ForeignKey-> usuario_id
 
 
@@ -80,10 +80,20 @@
 
 - [x] Text-> nome
 - [x] Text->[unico] codigo
-- [x] Text-> status
+- [x] Bool-> status
 - [x] Float-> valor
 - [x] Integer-> quantidade
 - [x] Text-> descricao
 - [x] Text-> imagem
 - [x] ForeignKey-> categoria_id
 - [x] ForeignKey-> usuario_id
+
+## - Usuario Admin
+
+- e-mail: admin@internit.com.br
+- senha: adm123
+
+
+- primary color #315d7b
+- second color #e2e8ed
+- maybe: bg-body-tertiary
