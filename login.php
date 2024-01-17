@@ -18,9 +18,7 @@
         }else{
             header( 'Location: ./usuario/painel.php' );
         }
-    }
-    
-    include './Includes/layout-cabecalho.php';
+    } 
 
     if( !empty($_POST['login']) ){
 
@@ -47,6 +45,8 @@
     
         header('Location: ../index.php');        
     }
+
+    include './Includes/layout-cabecalho.php';
 ?>
 
 

@@ -5,8 +5,6 @@
 
     require './Database/Conexao.php';
     require './Class/UsuariosClass.php';
-    
-    include './Includes/layout-cabecalho.php';
 
     if( !empty( $_SESSION['internit-login' ])){
 
@@ -42,6 +40,8 @@
         $usuario = new Usuarios( $pdo );
         $usuario->registrar( $dados );
     }
+
+    include './Includes/layout-cabecalho.php';
 
 ?>
 

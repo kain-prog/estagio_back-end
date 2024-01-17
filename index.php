@@ -5,8 +5,6 @@
 
     require './Database/Conexao.php';
     require './Class/UsuariosClass.php';
-    
-    include './Includes/layout-cabecalho.php';
 
     if( !empty( $_SESSION['internit-login'] ) ){
         
@@ -20,8 +18,10 @@
         $usuarios = new Usuarios( $pdo );
         $usuarios->logout();
     
-        header('Location: ../index.php');        
+        header('Location: ../index.php');
     }
+
+    include './Includes/layout-cabecalho.php';
 ?>
 
 

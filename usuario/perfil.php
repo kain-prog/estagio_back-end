@@ -5,9 +5,7 @@
 
     require '../Database/Conexao.php';
     require '../Class/UsuariosClass.php';
-    
-    include '../Includes/layout-cabecalho.php';
-
+ 
     if( !empty( $_SESSION['internit-login']) ){
 
         //id do usuário logado
@@ -60,6 +58,8 @@
             
         }
     }
+
+    include '../Includes/layout-cabecalho.php';
 ?>
 
 <?php require '../Components/MenuComponent.php' ?>

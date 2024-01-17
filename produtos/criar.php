@@ -8,8 +8,6 @@
     require '../Class/ProdutosClass.php';
     require '../Class/CategoriasClass.php';
     
-    include '../Includes/layout-cabecalho.php';
-
     if( !empty( $_SESSION['internit-login']) ){
 
         if( $usuario_logado['adm'] ){
@@ -76,6 +74,8 @@
         header( 'Location: ../index.php' ); 
                 
     }
+
+    include '../Includes/layout-cabecalho.php';
 ?>
 
 <?php require '../Components/MenuComponent.php' ?>

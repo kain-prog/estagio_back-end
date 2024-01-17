@@ -7,8 +7,6 @@
     require '../Database/Conexao.php';
     require '../Class/UsuariosClass.php';
     require '../Class/NoticiasClass.php';
-    
-    include '../Includes/layout-cabecalho.php';
 
     if( !empty( $_SESSION['internit-login'] ) ){
         
@@ -59,6 +57,8 @@
     
         header( 'Location: ../index.php' );        
     }
+
+    include '../Includes/layout-cabecalho.php';
 ?>
 
 <?php require '../Components/MenuComponent.php' ?>
