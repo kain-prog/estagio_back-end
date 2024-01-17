@@ -10,6 +10,8 @@
         
         $id = $_SESSION['internit-login'];
 
+        $texto_intro = 
+
         $usuarios_class = new Usuarios( $pdo );
         $usuario_logado = $usuarios_class->listar_por_id( $id );
     }
@@ -31,12 +33,15 @@
 
     <div class="mb-5">
         <h1>Seja bem vindo ao nosso site!</h1>
-        <p><a href="./registrar.php">Cadastre-se aqui</a> ou faça o <a href="./login.php">Login</a> para navegar na nossa plataforma.</p>
+        
+        <?php  if( empty( $_SESSION['internit-login'] )):  ?>
+
+            <p><a href="./registrar.php">Cadastre-se aqui</a> ou faça o <a href="./login.php">Login</a> para navegar na nossa plataforma.</p>
+
+        <?php endif ?>
+
     </div>
 
-    <div class="row m-auto">
-
-    </div>
 </div>
 
 
