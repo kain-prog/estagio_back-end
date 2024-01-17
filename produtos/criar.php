@@ -78,7 +78,7 @@
 
     <h1 class="my-3 pb-3">Criar Produto</h1>
 
-    <a class="btn btn-sm text-white" style="background: #315d7b" href="">Criar Categorias</a>
+    <a class="btn btn-sm text-white mb-3" style="background: #315d7b" href="../categorias/criar.php">Criar Categorias</a>
 
     <?php require '../Components/FormCriarProdutoComponent.php'; ?>
 
