@@ -39,7 +39,7 @@ CREATE TABLE categorias (
 CREATE TABLE produtos (
     id INT NOT NULL AUTO_INCREMENT,
     nome VARCHAR(25) NOT NULL,
-    codigo VARCHAR(100) UNIQUE NOT NULL,
+    codigo VARCHAR(4) UNIQUE NOT NULL,
     situacao BOOLEAN NOT NULL,
     valor FLOAT NOT NULL,
     quantidade INT NOT NULL,
