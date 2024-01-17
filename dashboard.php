@@ -85,7 +85,7 @@
             <div class="card-body">
                 <div class="d-flex gap-3 justify-content-end my-3">
                     <a href="#" class="btn btn-sm text-white" style="background:#315d7b">Criar Produtos</a>
-                    <a href="#" class="btn btn-sm btn-secondary text-white">Gerenciar Produtos</a>
+                    <a href="../produtos/todos.php" class="btn btn-sm btn-secondary text-white">Gerenciar Produtos</a>
                 </div>
 
                 <table class="table table-striped table-hover">
