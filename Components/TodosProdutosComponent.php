@@ -22,12 +22,12 @@
                         <?php if( $produto['situacao'] != 1 ){ ?>
 
                             <input type="hidden" name="id" value="<?= $produto['id'] ?>">
-                            <input class="btn btn-sm text-white" type="submit" name="ativar" value="Ativar Produto" style="background: #315d7b">
+                            <input class="btn btn-sm btn-outline-success" type="submit" name="ativar" value="Ativar Produto">
 
                         <?php } else { ?>
 
                             <input type="hidden" name="id" value="<?= $produto['id'] ?>">
-                            <input class="btn btn-sm text-white" type="submit" name="ativar" value="Desativar Produto" style="background: #315d7b">
+                            <input class="btn btn-sm btn-outline-danger" type="submit" name="ativar" value="Desativar Produto">
 
                         <?php } ?>
 
