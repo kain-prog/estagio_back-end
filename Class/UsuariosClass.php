@@ -1,5 +1,4 @@
 <?php
-
 class Usuarios
 {
     private $adm = 0;
