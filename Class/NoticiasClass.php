@@ -51,6 +51,14 @@ class Noticias
             return;
         }
 
+        
+        $imagem_vazia = strlen( $dados['imagem']['name'] );
+
+        if( $imagem_vazia ){
+            echo "<script>alert('O nome do produto é muito grande, o máximo são 25 caracteres.');</script>" ;
+            return;
+        }
+
         $arquivo = $dados['imagem'];
         $nome = $arquivo['name'];
         $caminho = 'Uploads/Noticias/' . uniqid('', true) . $nome ;
@@ -111,8 +119,6 @@ class Noticias
             return;
         }
 
-        $imagem_vazia = strlen( $dados['imagem']['name'] );
-
         $data_formatada = str_replace("/", "-", $dados['data_criacao']);
     
         $validacao_data = DateTime::createFromFormat('d-m-Y', $data_formatada);
@@ -131,6 +137,8 @@ class Noticias
         //** */
         //*     validacao de imagem
         //** */
+
+        $imagem_vazia = strlen( $dados['imagem']['name'] );
 
         if( $imagem_vazia <= 0 ){
     
@@ -217,7 +225,7 @@ class Noticias
             }
 
             $query = " UPDATE noticias SET destaque = :destaque WHERE id = :id ";
-            $sql = $this->pdo->prepare($query);
+            $sql = $this->pdo->prepare( $query );
             $sql->bindValue( ':id', $id );
             $sql->bindValue( ':destaque', 1 );
             $sql->execute();
