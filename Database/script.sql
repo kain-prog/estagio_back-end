@@ -29,8 +29,8 @@ CREATE TABLE noticias (
 
 CREATE TABLE categorias (
     categoria_id INT NOT NULL AUTO_INCREMENT,
-    nome VARCHAR(20) NOT NULL,
-    codigo VARCHAR(4) UNIQUE NOT NULL,
+    nome_categoria VARCHAR(20) UNIQUE NOT NULL,
+    codigo_categoria VARCHAR(4) UNIQUE NOT NULL,
     usuario_id INT NOT NULL,
     PRIMARY KEY (categoria_id),
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
@@ -39,7 +39,7 @@ CREATE TABLE categorias (
 CREATE TABLE produtos (
     id INT NOT NULL AUTO_INCREMENT,
     nome VARCHAR(25) NOT NULL,
-    codigo VARCHAR(4) UNIQUE NOT NULL,
+    codigo VARCHAR(8) UNIQUE NOT NULL,
     situacao BOOLEAN NOT NULL,
     valor FLOAT NOT NULL,
     quantidade INT NOT NULL,
