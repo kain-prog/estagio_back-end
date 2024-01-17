@@ -32,7 +32,7 @@ CREATE TABLE categorias (
     nome VARCHAR(20) NOT NULL,
     codigo VARCHAR(4) UNIQUE NOT NULL,
     usuario_id INT NOT NULL,
-    PRIMARY KEY (id),
+    PRIMARY KEY (categoria_id),
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
 );
 
