@@ -49,7 +49,7 @@ class Usuarios
 
             $usuario = $sql->fetch();
 
-            if( $usuario['senha'] === $senha ) {
+            if( $usuario['senha'] === md5($senha) ) {
 
                 $_SESSION['internit-login'] = $usuario['id'];
                 

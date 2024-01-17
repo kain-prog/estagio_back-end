@@ -53,4 +53,4 @@ CREATE TABLE produtos (
 );
 
 INSERT INTO usuarios ( nome, email, cpf, endereco, cidade, uf, senha, adm ) VALUES 
-                     ( 'Admin', 'admin@internit.com.br', '11111111111' , 'R. Santa Rosa', 'Niteroi', 'RJ', 'adm123', true )
+                     ( 'Admin', 'admin@internit.com.br', '11111111111' , 'R. Santa Rosa', 'Niteroi', 'RJ', MD5('adm123'), true )
