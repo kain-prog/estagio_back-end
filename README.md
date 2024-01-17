@@ -110,5 +110,5 @@
 #### Login Admin
 
 - Credenciais de Acesso do admin:
-    - admin@internit.com
+    - admin@internit.com.br
     - admin123

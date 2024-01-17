@@ -25,12 +25,12 @@
 
         if( $usuario_logado['adm'] ){
             header( 'Location: ../adm/painel.php' );
-            exit;
+            
         }
         
     }else{
         header( 'Location: ../login.php' );
-        exit;
+        
     }
 
     if( !empty( $_POST['logout'] )){
@@ -38,12 +38,12 @@
         $usuarios->logout();
     
         header( 'Location: ../index.php' );
-        exit;        
+                
     }
 
     if( !empty( $_POST['ver_noticias'] )){
         header( 'Location: ../noticias/todas.php' );
-        exit;      
+              
     }
 ?>
 

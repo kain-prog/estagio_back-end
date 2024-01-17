@@ -26,7 +26,7 @@
         if( !empty( $_GET['id'] && $_GET['editar'] ) ){
             $noticia_id = $_GET['id'];
             header( 'Location: ./editar.php?id=' . $noticia_id );
-            exit;
+
         }
 
         if( !empty( $_POST['id'] && $_POST['apagar'] ) ){
@@ -35,7 +35,7 @@
 
             if( $destroy['sucesso'] ){
                 header( 'Refresh: 0' );
-                exit;
+    
             }
         }
 
@@ -45,21 +45,19 @@
 
             if( $destaque['sucesso'] ){
                 header( 'Refresh: 0' );
-                exit;
+    
             }
         }
         
     }else{
         header( 'Location: ../login.php' );
-        exit;
     }
 
     if( !empty( $_POST['logout'] )){
         $usuarios = new Usuarios( $pdo );
         $usuarios->logout();
     
-        header( 'Location: ../index.php' );
-        exit;        
+        header( 'Location: ../index.php' );        
     }
 ?>
 

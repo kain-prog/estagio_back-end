@@ -30,8 +30,6 @@ class Usuarios
         $conn->bindValue( ":adm", 0  );
         $conn->execute();
     
-        if($conn->rowCount() <= 0) return 0;
-
         return $conn;
     }
 
@@ -60,10 +58,16 @@ class Usuarios
                 $this->listar_por_id($usuario['id']);
 
                 if( $usuario['adm'] != 0 ){
-                    header( 'Location: ./adm/painel.php' );
+                    
+                    $resultado = array( 'sucesso' => true, 'adm' => true,  'mensagem' => 'Usuário registrado com sucesso!' );
+                    return $resultado;
+
 
                 }else{
-                    header( 'Location: ./usuario/painel.php' );
+
+                    $resultado = array( 'sucesso' => true, 'adm' => false,  'mensagem' => 'Usuário registrado com sucesso!' );
+                    return $resultado;
+
                 }
 
                 return true;

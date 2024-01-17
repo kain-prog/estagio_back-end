@@ -22,7 +22,7 @@
 
             if( $ativar['sucesso'] ) {
                 header( 'Refresh: 0' );
-                exit;
+                
             };
         }
         
@@ -33,14 +33,14 @@
 
             if( $ativar['sucesso'] ) {
                 header( 'Refresh: 0' );
-                exit;
+                
             };
         }
 
 
     }else{
         header( 'Location: ../login.php' );
-        exit;
+        
     }
 
     if( !empty( $_POST['logout'] )){
@@ -48,7 +48,7 @@
         $usuarios->logout();
     
         header( 'Location: ../index.php' );
-        exit;        
+                
     }
 
     $title = "Listagem de Produtos";

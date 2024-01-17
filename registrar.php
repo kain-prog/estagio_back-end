@@ -18,11 +18,9 @@
 
         if($usuario['adm']){
             header( 'Location: ./adm/painel.php' );
-            exit;
 
         }else{
             header( 'Location: ./usuario/painel.php' );
-            exit;
         }
     }
 

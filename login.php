@@ -14,11 +14,9 @@
 
         if( $usuario['adm'] ){
             header( 'Location: ./adm/painel.php' );
-            exit;
 
         }else{
             header( 'Location: ./usuario/painel.php' );
-            exit;
         }
     }
     
@@ -30,15 +28,24 @@
         $senha = addslashes($_POST['senha']);
 
         $usuarios = new Usuarios($pdo);
-        $usuarios->login( $email, $senha );
+
+        $resultado = $usuarios->login( $email, $senha );
+
+        if( $resultado['sucesso'] && $resultado['adm'] ){
+
+            header('Location: ./adm/painel.php');
+
+        } elseif ( $resultado['sucesso'] && !$resultado['adm'] ) {
+
+            header('Location: ./usuario/painel.php');
+        } 
     }
 
     if( !empty($_POST['logout'])){
         $usuarios = new Usuarios( $pdo );
         $usuarios->logout();
     
-        header('Location: ../index.php');
-        exit;        
+        header('Location: ../index.php');        
     }
 ?>
 

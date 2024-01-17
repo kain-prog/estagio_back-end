@@ -21,12 +21,12 @@
 
         if( $usuario_logado['adm'] ) {
             header( 'Location: ../adm/perfil.php' ); 
-            exit;
+            
         }
 
     }else {
         header( 'Location: ../login.php' ); 
-        exit;
+        
     }
 
     if( !empty( $_POST['logout'] )){
@@ -34,7 +34,7 @@
         $usuarios->logout();
     
         header( 'Location: ../index.php' ); 
-        exit;        
+                
     }
 
     if( isset( $_POST['atualizar'] )){
@@ -57,7 +57,7 @@
 
         if( $retorno['sucesso'] ){
             header('Refresh: 0');
-            exit;
+            
         }
     }
 ?>

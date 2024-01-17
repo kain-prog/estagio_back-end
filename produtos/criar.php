@@ -14,7 +14,7 @@
 
         if( $usuario_logado['adm'] ){
             header( 'Location: ../usuario/painel.php' ); 
-            exit;
+            
         }
 
         //id do usuário logado
@@ -59,14 +59,14 @@
 
             if( $resultado['sucesso'] ){
                 header( 'Refresh: 0' );
-                exit;
+                
             }  
         }
 
 
     }else {
         header( 'Location: ../login.php' ); 
-        exit;
+        
     }
 
     if( !empty( $_POST['logout'] )){
@@ -74,7 +74,7 @@
         $usuarios->logout();
     
         header( 'Location: ../index.php' ); 
-        exit;        
+                
     }
 ?>
 

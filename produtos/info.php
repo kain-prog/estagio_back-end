@@ -9,7 +9,7 @@
     if( empty( $_GET['id']) ){
         echo "<script>alert( 'Não foi possível acessar esta página' )</script>";
         header( 'Location: ../login.php' );
-        exit;
+        
     }
 
     if( !empty( $_SESSION['internit-login'] ) ){
@@ -25,7 +25,7 @@
         if( $produto['usuario_id'] != $usuario_logado['id'] ){
             echo "<script>alert( 'Não foi possível acessar esta página' )</script>";
             header( 'Location: ../login.php' );
-            exit;
+            
         }
 
         if( !empty( $_POST['id'] && $_POST['ativar'] )){
@@ -34,7 +34,7 @@
 
             if( $ativar['sucesso'] ) {
                 header( 'Refresh: 0' );
-                exit;
+                
             };
         }
 
@@ -44,7 +44,7 @@
 
             if( $ativar['sucesso'] ) {
                 header( 'Refresh: 0' );
-                exit;
+                
             };
         }
         
@@ -54,14 +54,14 @@
 
             if( $ativar['sucesso'] ) {
                 header( 'Refresh: 0' );
-                exit;
+                
             };
         }
 
 
     }else{
         header( 'Location: ../login.php' );
-        exit;
+        
     }
 
     if( !empty( $_POST['logout'] )){
@@ -69,7 +69,7 @@
         $usuarios->logout();
     
         header( 'Location: ../index.php' );
-        exit;        
+                
     }
 
     $title = "Produto - " . $produto['nome'];

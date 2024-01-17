@@ -19,7 +19,7 @@
 
     }else{
         header( 'Location: ../login.php' );
-        exit;
+        
     }
 
     if( !empty( $_POST['logout'] )){
@@ -27,13 +27,13 @@
         $usuarios->logout();
     
         header( 'Location: ../index.php' );
-        exit;        
+                
     }
 
     if( empty( $_GET['id']) ){
         echo "<script>alert( 'Não foi possível acessar esta página' )</script>";
         header( 'Location: ../index.php' );
-        exit;
+        
     }
 
     $title = "Noticia - " . $noticia['titulo'];

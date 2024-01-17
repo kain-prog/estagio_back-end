@@ -21,7 +21,6 @@
 
         if( $usuario_logado['adm'] ){
             header( 'Location: ../adm/painel.php' ); 
-            exit;
         }
 
         if( !empty( $_GET['id'] )){
@@ -34,7 +33,7 @@
             if( $categoria['usuario_id'] != $usuario_logado['id'] ){
                 echo "<script>alert( 'Não foi possível acessar esta página' )</script>";
                 header( 'Location: ../login.php' );
-                exit;
+                
             }
         
         }
@@ -50,22 +49,20 @@
 
             if( $resultado['sucesso'] ){
                 header( 'Refresh: 0' );
-                exit;
+    
             }  
         }
 
 
     }else {
         header( 'Location: ../login.php' ); 
-        exit;
     }
 
     if( !empty( $_POST['logout'] )){
         $usuarios = new Usuarios( $pdo );
         $usuarios->logout();
     
-        header( 'Location: ../index.php' ); 
-        exit;        
+        header( 'Location: ../index.php' );         
     }
 ?>
 

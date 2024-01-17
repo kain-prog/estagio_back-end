@@ -19,21 +19,19 @@
 
         if( !$usuario_logado['adm'] ) {
             header( 'Location: ../usuario/painel.php' );
-            exit;
+
         }
 
 
     }else {
         header( 'Location: ../login.php' );
-        exit;
     }
 
     if( !empty( $_POST['logout'] )){
         $usuarios = new Usuarios( $pdo );
         $usuarios->logout();
     
-        header( 'Location: ../index.php' );
-        exit;        
+        header( 'Location: ../index.php' );        
     }
 
     if( !empty( $_POST['criar_noticia'] )){
@@ -51,7 +49,7 @@
 
         if( $retorno['sucesso'] ){
             header('Refresh: 0');
-            exit;
+
         }
 
     }
