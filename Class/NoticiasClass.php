@@ -85,9 +85,9 @@ class Noticias
         $destaque = addslashes( $this->destaque );
         $usuario_id = addslashes( $id );
 
-        $query = ( "INSERT INTO noticias ( titulo, resumo, imagem, conteudo, destaque, usuario_id, data_criacao ) 
+        $query = "INSERT INTO noticias ( titulo, resumo, imagem, conteudo, destaque, usuario_id, data_criacao ) 
                     VALUES
-                    ( :titulo, :resumo, :imagem, :conteudo, :destaque, :usuario_id, :data_criacao )" );
+                    ( :titulo, :resumo, :imagem, :conteudo, :destaque, :usuario_id, :data_criacao )";
 
         $sql = $this->pdo->prepare( $query );
         $sql->bindValue( ':titulo', $titulo  );
@@ -200,7 +200,7 @@ class Noticias
 
     public function apagar_noticia( $id )
     {
-        $query = ( "DELETE FROM noticias WHERE id = :id" );
+        $query = "DELETE FROM noticias WHERE id = :id";
         $sql = $this->pdo->prepare( $query );
         $sql->bindValue( ':id', $id );
         $sql->execute();
@@ -224,7 +224,7 @@ class Noticias
                 return ;
             }
 
-            $query = " UPDATE noticias SET destaque = :destaque WHERE id = :id ";
+            $query = "UPDATE noticias SET destaque = :destaque WHERE id = :id ";
             $sql = $this->pdo->prepare( $query );
             $sql->bindValue( ':id', $id );
             $sql->bindValue( ':destaque', 1 );
@@ -237,7 +237,7 @@ class Noticias
 
         } else {
 
-            $query = " UPDATE noticias SET destaque = :destaque WHERE id = :id ";
+            $query = "UPDATE noticias SET destaque = :destaque WHERE id = :id ";
             $sql = $this->pdo->prepare($query);
             $sql->bindValue( ':id', $id );
             $sql->bindValue( ':destaque', 0 );
