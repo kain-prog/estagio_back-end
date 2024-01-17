@@ -14,13 +14,13 @@
 
         <div class="col-md-5">
             <label for="codigo_categoria">Código:</label>
-            <input class="form-control" type="text" name="codigo_categoria" id="codigo_categoria" style="box-shadow: none !important;" required placeholder="CE22">
+            <input class="form-control" type="text" name="codigo_categoria" id="codigo_categoria" style="box-shadow: none !important;" required placeholder="CE22" >
         </div>
 
     </div>
 
     <div class="mb-4">
-        <input type="submit" class="btn w-100 py-3 text-white" name="criar_categoria" value="Criar Produto" style="background-color: #315d7b" />
+        <input type="submit" class="btn w-100 py-3 text-white" name="criar_categoria" value="Criar Categoria" style="background-color: #315d7b" />
     </div>
 
 </form>

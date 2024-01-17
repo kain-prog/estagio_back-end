@@ -36,7 +36,7 @@
     </div>
 
     <div class="mb-4">
-        <input type="submit" class="btn w-100 py-3 text-white" name="atualizar_noticia" value="Criar Notícia" style="background-color: #315d7b" />
+        <input type="submit" class="btn w-100 py-3 text-white" name="atualizar_noticia" value="Editar Notícia" style="background-color: #315d7b" />
     </div>
 
 </form>

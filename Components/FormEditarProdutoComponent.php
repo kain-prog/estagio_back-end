@@ -41,7 +41,7 @@
 
     <div class="d-flex flex-column w-100 align-items-center mb-3">
         <label for="nome" class="w-100">Descrição:</label>
-        <textarea class="w-100 form-control" name="descricao" id="descricao" cols="30" rows="3" style="box-shadow: none !important;"> <?= $produto['descricao'] ?></textarea>
+        <textarea class="w-100 form-control" name="descricao" id="descricao" cols="30" rows="3" style="box-shadow: none !important;"><?= $produto['descricao'] ?></textarea>
 
     </div>
 

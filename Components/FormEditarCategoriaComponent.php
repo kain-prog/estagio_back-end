@@ -14,13 +14,13 @@
 
         <div class="col-md-5">
             <label for="codigo_categoria">Código:</label>
-            <input class="form-control" type="text" name="codigo_categoria" id="codigo_categoria" style="box-shadow: none !important;" required placeholder="CE22" value="<?= $categoria['codigo_categoria'] ?>">
+            <input class="form-control disabled" type="text" disabled id="codigo_categoria" style="box-shadow: none !important;" required placeholder="CE22" value="<?= $categoria['codigo_categoria'] ?>">
         </div>
 
     </div>
 
     <div class="mb-4">
-        <input type="submit" class="btn w-100 py-3 text-white" name="editar_categoria" value="Editar Produto" style="background-color: #315d7b" />
+        <input type="submit" class="btn w-100 py-3 text-white" name="editar_categoria" value="Editar Categoria" style="background-color: #315d7b" />
     </div>
 
 </form>
