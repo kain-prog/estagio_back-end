@@ -17,6 +17,7 @@
 
         // Dados do usuário logado
         $usuario_logado = $usuarios_class->listar_por_id( $id );
+        $usuario_input = $usuario_logado;
 
         if( $usuario_logado['adm'] ) {
             header( 'Location: ../adm/perfil.php' ); 
@@ -52,7 +53,12 @@
                     'senha_atual' => $senha_atual, 'senha' => $senha, 'confirmacao_senha' => $confirmacao_senha );
 
         $usuarios = new Usuarios( $pdo );
-        $usuarios->atualizar_dados( $id, $dados );
+        $retorno = $usuarios->atualizar_dados( $id, $dados );
+
+        if( $retorno['sucesso'] ){
+            header('Refresh: 0');
+            exit;
+        }
     }
 ?>
 
@@ -63,7 +69,7 @@
 
     <h1 class="my-3 pb-3">Meu Perfil</h1>
 
-    <?php require '../Components/FormEditarPerfilComponent.php'; ?>
+    <?php require '../Components/FormEditarPerfilComponent.php' ?>
 
 </div>
 
