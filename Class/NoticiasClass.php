@@ -25,7 +25,6 @@ class Noticias
         $sql->execute();
 
         return $sql;
-
     }
 
     public function listar_por_id( $id )
@@ -36,7 +35,6 @@ class Noticias
         $sql->execute();
 
         return $sql;
-
     }
 
     public function criar_noticia( $dados, $id )
@@ -50,12 +48,11 @@ class Noticias
             echo "<script>alert('O resumo inserido é muito grande, o máximo são 100 caracteres.');</script>" ;
             return;
         }
-
         
         $imagem_vazia = strlen( $dados['imagem']['name'] );
 
-        if( $imagem_vazia ){
-            echo "<script>alert('O nome do produto é muito grande, o máximo são 25 caracteres.');</script>" ;
+        if( $imagem_vazia <= 0 ){
+            echo "<script>alert('A imagem é obrigatória.');</script>" ;
             return;
         }
 
@@ -63,20 +60,22 @@ class Noticias
         $nome = $arquivo['name'];
         $caminho = 'Uploads/Noticias/' . uniqid('', true) . $nome ;
 
-        $data_formatada = str_replace("/", "-", $dados['data_criacao']);
+        $data_separada = explode('/', $dados['data_criacao']);
+        $ano = intval( $data_separada[2] );
+        $mes = intval( $data_separada[1] );
+        $dia = intval( $data_separada[0] );
 
-        $validacao_data = DateTime::createFromFormat('d-m-Y', $data_formatada);
-        $dia = $validacao_data->format('d');
-        $mes = $validacao_data->format('m');
-        $ano = $validacao_data->format('Y');
-        
         if(!checkdate( $mes, $dia, $ano )){
+
             echo "<script>alert('Por favor, selecione uma data válida!');</script>" ;
-
             return ;
-        }       
-
-        $data_criacao = $validacao_data->format('Y-m-d');
+        };     
+    
+        $data_valida = $dia . '-' . $mes . '-' . $ano;
+       
+        $formatacao_data = DateTime::createFromFormat('d-m-Y', $data_valida);     
+  
+        $data_criacao = $formatacao_data->format('Y-m-d');
 
         $titulo = addslashes( $dados['titulo'] );
         $resumo = addslashes( $dados['resumo'] );
@@ -119,20 +118,22 @@ class Noticias
             return;
         }
 
-        $data_formatada = str_replace("/", "-", $dados['data_criacao']);
-    
-        $validacao_data = DateTime::createFromFormat('d-m-Y', $data_formatada);
-        $dia = $validacao_data->format('d');
-        $mes = $validacao_data->format('m');
-        $ano = $validacao_data->format('Y');
-        
+        $data_separada = explode('/', $dados['data_criacao']);
+        $ano = intval( $data_separada[2] );
+        $mes = intval( $data_separada[1] );
+        $dia = intval( $data_separada[0] );
+
         if(!checkdate( $mes, $dia, $ano )){
+
             echo "<script>alert('Por favor, selecione uma data válida!');</script>" ;
-
             return ;
-        }       
-
-        $data_criacao = $validacao_data->format('Y-m-d');
+        };     
+    
+        $data_valida = $dia . '-' . $mes . '-' . $ano;
+       
+        $formatacao_data = DateTime::createFromFormat('d-m-Y', $data_valida);     
+  
+        $data_criacao = $formatacao_data->format('Y-m-d');
 
         //** */
         //*     validacao de imagem
@@ -163,7 +164,6 @@ class Noticias
 
             $dados_antigos = $this->listar_por_id( $id )->fetch();
 
-            // Remover foto antiga
             if (file_exists( '../' . $dados_antigos['imagem'] )) {
                 unlink( '../' . $dados_antigos['imagem'] );
             }
@@ -187,7 +187,6 @@ class Noticias
             $sql->bindValue( ':conteudo', $conteudo  );
             $sql->execute();
 
-            // Adicionar foto nova
             move_uploaded_file($arquivo['tmp_name'], '../'.$caminho);
 
             echo "<script>alert( 'A notícia foi atualizada com sucesso!' );</script>";

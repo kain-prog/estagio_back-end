@@ -6,6 +6,23 @@ class Usuarios
 
     public function __construct( private $pdo  ){}
 
+    public function listar_todos_usuarios()
+    {   
+        $usuarios = array();
+
+        $conn = $this->pdo->prepare("SELECT * FROM usuarios");
+        $conn->execute();
+
+        if( $conn->rowCount() > 0 ){
+
+            $usuarios = $conn->fetchAll();
+
+            return $usuarios;
+        }
+
+        return $usuarios;
+    }
+
     public function listar()
     {   
 
@@ -72,16 +89,42 @@ class Usuarios
             return ;
         }
 
+        if(strlen( $dados['cpf'] ) < 14 ){
+            echo "<script>alert( 'Insira um cpf válido' )</script>";
+            return ;
+        }
+
+        $formatar_cpf = explode( '.', $dados['cpf'] );
+        $formatar_cpf = explode( '-', implode($formatar_cpf) );
+        $cpf_formatado = implode($formatar_cpf);
+
+        $todos_usuarios = $this->listar_todos_usuarios();
+
+        foreach( $todos_usuarios as $usuario ):
+
+            if( $usuario['cpf'] == $cpf_formatado ){
+                
+                echo "<script>alert( 'O CPF inserido já existe.' )</script>";
+                return ;
+
+            }
+
+            if( $usuario['email'] == $dados['email'] ){
+
+                echo "<script>alert( 'O CPF inserido já existe.' )</script>";
+                return ;
+
+            }
+        
+        endforeach;
+
+        
         if( !empty( $dados['senha'] || !empty( $dados['confirmacao_senha'] ))){
 
             if( $dados['senha'] !== $dados['confirmacao_senha'] ){
                 echo "<script>alert( 'Confirmação de senha inválida' )</script>";
                 return ;
             }
-
-            $formatar_cpf = explode( '.', $dados['cpf'] );
-            $formatar_cpf = explode( '-', implode($formatar_cpf) );
-            $cpf_formatado = implode($formatar_cpf);
 
             $query = ( "INSERT INTO usuarios ( nome, email, cpf, endereco, cidade, uf, senha, adm ) 
                         VALUES
@@ -110,7 +153,6 @@ class Usuarios
             echo "<script>alert( 'Usuário registrado com sucesso!' )</script>";
             $resultado = array( 'sucesso' => true, 'mensagem' => 'Usuário registrado com sucesso!' );
             return $resultado;
-        
         }
 
     }
@@ -135,14 +177,45 @@ class Usuarios
     public function atualizar_dados( $id, $dados)
     {
 
-        $cpf = explode('.', $dados['cpf']);
-        $cpf_formatado = explode('-', implode( $cpf ) );
-        $cpf_formatado = implode($cpf_formatado);
-
-        if( strlen($dados['cpf']) < 11 ){
-            echo "<script>alert( 'Insira um CPF válido.' )</script>";
+        if(!filter_var($dados['email'], FILTER_VALIDATE_EMAIL)){
+            echo "<script>alert( 'Insira um e-mail válido' )</script>";
             return ;
         }
+
+        if(strlen( $dados['cpf'] ) < 14 ){
+            echo "<script>alert( 'Insira um cpf válido' )</script>";
+            return ;
+        }
+
+        $formatar_cpf = explode( '.', $dados['cpf'] );
+        $formatar_cpf = explode( '-', implode($formatar_cpf) );
+        $cpf_formatado = implode($formatar_cpf);
+
+        $todos_usuarios = $this->listar_todos_usuarios();
+
+        foreach( $todos_usuarios as $usuario ):
+
+            if( $usuario['cpf'] == $cpf_formatado ){
+
+                if( $usuario['id'] !== $id ){
+
+                    echo "<script>alert( 'O CPF inserido já existe.' )</script>";
+                    return ;
+                }
+                
+            }
+
+            if( $usuario['email'] == $dados['email'] ){
+
+                if( $usuario['id'] !== $id ){
+
+                    echo "<script>alert( 'O E-mail inserido já existe.' )</script>";
+                    return ;
+
+                }
+            }
+        
+        endforeach;
 
         if( empty( $dados['senha_atual'] ) ){
             echo "<script>alert( 'A senha atual é obrigatória' )</script>";

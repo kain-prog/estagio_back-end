@@ -94,14 +94,13 @@ class Categorias
 
     public function editar_categoria( $id, $dados )
     {
-
         $todas_categorias = $this->listar_categorias_usuario( $dados['usuario_id'] );
 
         foreach( $todas_categorias as $categoria ):
             
             if( in_array( $dados['nome_categoria'], $categoria ) ){
 
-                if( $categoria['categoria_id'] !== $id ){
+                if( $categoria['categoria_id'] != $id ){
 
                     echo "<script>alert('O nome da categoria já existe.');</script>" ;
                     return ;
@@ -110,28 +109,19 @@ class Categorias
 
         endforeach ;
 
-        if( $dados['nome_categoria'] > 20 ){
+        if( strlen( $dados['nome_categoria'] ) > 20 ){
             echo "<script>alert('O nome da categoria é muito longo, o máximo são 20 caracteres!');</script>" ;
-            return ;
-        }
-
-        if( $dados['codigo_categoria'] > 4 ){
-            echo "<script>alert('O código da categoria é muito longo, o máximo são 4 caracteres!');</script>" ;
             return ;
         }
 
         $categoria_id = addslashes( $id );
         $nome_categoria = addslashes( $dados['nome_categoria'] );
-        $codigo_categoria = addslashes( $dados['codigo_categoria'] );
-        $usuario_id = addslashes( $dados['usuario_id'] );
 
-        $query = "UPDATE SET `nome_categoria` = :nome_categoria, `codigo_categoria` = `codigo_categoria`, `usuario_id` = :usuario_id WHERE categoria_id = :categoria_id";
+        $query = "UPDATE categorias SET `nome_categoria` = :nome_categoria WHERE categoria_id = :categoria_id";
         
         $sql = $this->pdo->prepare( $query );
         $sql->bindValue( ':categoria_id', $categoria_id );
         $sql->bindValue( ':nome_categoria', $nome_categoria );
-        $sql->bindValue( ':codigo_categoria', $codigo_categoria );
-        $sql->bindValue( ':usuario_id', $usuario_id );
         $sql->execute();
 
         echo "<script>alert( 'A categoria foi editada com sucesso!' )</script>";
