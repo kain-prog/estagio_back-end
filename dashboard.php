@@ -7,6 +7,7 @@
     require './Database/Conexao.php';
     require './Class/UsuariosClass.php';
     require './Class/ProdutosClass.php';
+    require './Class/CategoriasClass.php';
     
     include './Includes/layout-cabecalho.php';
 
@@ -20,6 +21,11 @@
         if( $usuario_logado['adm'] ) {
             header( 'Location: ./adm/painel.php' );
         }
+
+        // listagem de categorias
+        $categorias_class = new Categorias( $pdo );
+        $quantidade_categorias = $categorias_class->listar_categorias_usuario( $usuario_logado['id'] )->rowCount();
+        $todas_categorias = $categorias_class->listar_categorias_usuario( $usuario_logado['id'] )->fetchAll();
 
         // listagem de produtos
         $produtos_class = new Produtos( $pdo );
@@ -42,6 +48,18 @@
     
         header( 'Location: ./index.php' );
         exit;        
+    }
+
+    if( !empty( $_POST['apagar_categoria'] )){
+
+        $categoria_id = $_POST['id'];
+        $retorno = $categorias_class->excluir_categoria( $categoria_id );
+
+        if( $retorno['sucesso'] ){
+            header( 'Refresh: 0');
+            exit;
+        }
+
     }
 ?>
 
@@ -84,18 +102,18 @@
 
             <div class="card-body">
                 <div class="d-flex gap-3 justify-content-end my-3">
-                    <a href="#" class="btn btn-sm text-white" style="background:#315d7b">Criar Produtos</a>
+                    <a href="./produtos/criar.php" class="btn btn-sm text-white" style="background:#315d7b">Criar Produto</a>
                     <a href="../produtos/todos.php" class="btn btn-sm btn-secondary text-white">Gerenciar Produtos</a>
                 </div>
 
                 <table class="table table-striped table-hover">
                     <thead>
                         <tr>
-                            <td class="text-center">Imagem</td>
-                            <td class="text-center">Nome</td>
-                            <td class="text-center">Quantidade</td>
-                            <td class="text-center">Valor</td>                                   
-                            <td class="text-center"></td>                      
+                            <td class="text-center" style="vertical-align: middle;">Imagem</td>
+                            <td class="text-center" style="vertical-align: middle;">Nome</td>
+                            <td class="text-center" style="vertical-align: middle;">Quantidade</td>
+                            <td class="text-center" style="vertical-align: middle;">Valor</td>                                   
+                            <td class="text-center" style="vertical-align: middle;"></td>                      
                         </tr>
                     </thead>
                     <tbody>
@@ -103,13 +121,65 @@
 
                             <tr>
                                 <td class="text-center">
-                                    <img src="./Uploads/Produtos/<?= $produto['usuario_id'] ?>/<?= $produto['imagem'] ?>" alt="<?= $produto['nome'] ?>">
+                                    <img class="h-100 object-fit-cover" src="./<?= $produto['imagem'] ?>" alt="<?= $produto['nome'] ?>" style="max-width: 235px; vertical-align: middle;">
                                 </td>
-                                <td class="text-center"> <?= $produto['nome'] ?> </td>
-                                <td class="text-center"> <?= $produto['quantidade'] ?> </td>   
-                                <td class="text-center"> <?= $produto['valor'] ?> </td>  
-                                <td class="d-flex justify-content-center">
+                                <td class="text-center" style="vertical-align: middle;"> <?= $produto['nome'] ?> </td>
+                                <td class="text-center" style="vertical-align: middle;"> <?= $produto['quantidade'] ?> </td>   
+                                <td class="text-center" style="vertical-align: middle;"> <?= $produto['valor'] ?> </td>  
+                                <td class="text-center" style="vertical-align: middle;">
                                     <a class="text-decoration-none" href="./produtos/info.php?id=<?= $produto['id'] ?>">Ver produto</a>
+                                </td>
+                            </tr>
+
+                        <?php endforeach ?>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <h5 class="my-5 text-center text-secondary">Listagem de categorias</h5>
+
+        <div class="card">
+
+            <div class="card-header">
+                <h6 class="mb-0">Categorias -<span class="text-success" style="font-weight: 600; font-style: italic"> <?= $quantidade_produtos_cadastrados ?> </span></h6>
+            </div>
+
+            <div class="card-body">
+                <div class="d-flex gap-3 justify-content-end my-3">
+                    <a href="./categorias/criar.php" class="btn btn-sm text-white" style="background:#315d7b">Adicionar Categoria</a>
+                </div>
+
+                <table class="table table-striped table-hover overflow-scroll">
+                    <thead>
+                        <tr>
+                            <td class="text-center">Nome</td>
+                            <td class="text-center">Código</td>                      
+                            <td class="text-center"></td>                         
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach( $todas_categorias as $categoria ): ?>
+
+                            <tr>
+                                <td class="text-center" style="vertical-align: middle;"> <?= $categoria['nome_categoria'] ?> </td>
+                                <td class="text-center" style="vertical-align: middle;"> <?= $categoria['codigo_categoria'] ?></td>
+                                <td class="text-center" style="vertical-align: middle;">
+
+                                    <div class="d-flex gap-3 justify-content-center align-items-center">
+                                        <small>
+                                            <a style="font-size:12px font-weight: 700" class="text-decoration-none " href="../categorias/editar.php?id=<?= $categoria['categoria_id'] ?>"> Editar </a>
+                                        </small>
+
+                                        <small>
+                                            <form method="POST">
+                                                <input type="hidden" name="id" value="<?= $categoria['categoria_id'] ?>">
+                                                <input class="nav-link text-danger" name="apagar_categoria" type="submit" value="Apagar" style="font-size:12px; font-weight: 700">
+                                            </form>
+                                        </small>
+                                    </div>
+                                
                                 </td>
                             </tr>
 
