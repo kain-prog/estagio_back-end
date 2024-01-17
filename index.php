@@ -32,7 +32,7 @@
 
     <div class="mb-5">
         <h1>Seja bem vindo ao nosso site!</h1>
-        <p>Confira abaixo as últimas notícias da nossa plataforma!</p>
+        <p><a href="./registrar.php">Cadastre-se aqui</a> ou faça o <a href="./login.php">Login</a> para navegar na nossa plataforma.</p>
     </div>
 
     <div class="row m-auto">

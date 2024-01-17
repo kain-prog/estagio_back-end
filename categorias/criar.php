@@ -26,7 +26,6 @@
 
         if( !empty( $_POST['criar_categoria'] )){
 
-
             $nome_categoria = $_POST['nome_categoria'] ;
             $codigo_categoria = $_POST['codigo_categoria'];
           

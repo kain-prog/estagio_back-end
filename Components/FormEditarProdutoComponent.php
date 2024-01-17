@@ -19,7 +19,7 @@
             <p class="mb-0">Código:</p>
             <div class="input-group">
                 <label class="input-group-text" for="codigo"><small><?= $produto['codigo_categoria'] ?></small></label>
-                <input type="text" class="form-control" name="codigo" style="box-shadow: none !important;" id="codigo" value="<?= substr($produto['codigo'], 3) ?>">
+                <input type="text" class="form-control" name="codigo" style="box-shadow: none !important;" id="codigo" value="<?= substr($produto['codigo'], 4) ?>">
             </div>
         </div>
     </div>

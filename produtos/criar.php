@@ -31,6 +31,13 @@
 
         if( !empty( $_POST['criar_produto'] )){
 
+            if( !$_POST['categoria'] ){
+
+                echo "<script>alert('Não é possível criar um produto sem uma categoria selecionada.');</script>" ;
+                header( 'Refresh: 0' );
+                return;
+            }
+
             $categoria_selecionada = $categorias_class->listar_categoria_por_id( $_POST['categoria'] )->fetch();
 
             $nome = $_POST['nome'] ;
