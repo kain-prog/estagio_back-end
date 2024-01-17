@@ -7,7 +7,7 @@
 
     <div class="d-flex justify-content-start gap-2 mb-4">
         <p class="text-danger" style="font-weight: 600">OBS*</p>
-        <small> Antes de criar um produto, você <strong>deve</strong> ter alguma categoria registrada. </small>
+        <small style="max-width: 400px"> Antes de criar um produto, você <strong>deve</strong> ter alguma categoria registrada, <a href="../categorias/criar.php">clique aqui</a> para criar uma categoria.</small>
     </div>
 
     <div class="row align-items-center justify-content-between mb-3 gap-3">
