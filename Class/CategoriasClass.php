@@ -59,6 +59,13 @@ class Categorias
             
             };
 
+            if( in_array( $dados['codigo_categoria'], $categoria ) ){
+                
+                echo "<script>alert('O código da categoria já existe.');</script>" ;
+                return ;
+            
+            };
+
         endforeach ;
         
         if( strlen( $dados['nome_categoria'] ) > 20 ){
