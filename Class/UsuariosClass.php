@@ -150,7 +150,7 @@ class Usuarios
             $sql->bindValue( ':endereco', $endereco  );
             $sql->bindValue( ':cidade', $cidade  );
             $sql->bindValue( ':uf', $uf );
-            $sql->bindValue( ':senha', md5( $senha )  );
+            $sql->bindValue( ':senha', $senha );
             $sql->bindValue( ':adm', $adm );
             $sql->execute();            
 
