@@ -49,7 +49,7 @@ CREATE TABLE produtos (
     categoria_id INT NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id),
-    FOREIGN KEY (categoria_id) REFERENCES categorias(id) ON DELETE CASCADE
+    FOREIGN KEY (categoria_id) REFERENCES categorias(categoria_id) ON DELETE CASCADE
 );
 
 INSERT INTO usuarios ( nome, email, cpf, endereco, cidade, uf, senha, adm ) VALUES 
