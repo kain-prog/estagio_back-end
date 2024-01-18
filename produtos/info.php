@@ -37,16 +37,6 @@
                 
             };
         }
-
-        if( !empty( $_POST['id'] && $_POST['ativar'] )){
-
-            $ativar = $produtos_class->ativar_toggle( $id_produto );
-
-            if( $ativar['sucesso'] ) {
-                header( 'Refresh: 0' );
-                
-            };
-        }
         
         if( !empty( $_POST['excluir_produto'] )){
 
